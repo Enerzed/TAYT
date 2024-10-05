@@ -2,7 +2,11 @@
 #include <string>
 
 #define MAX_TEXT 16384
-#define MAX_LEX 128
+#define MAX_LEX 64
+// + 1 Для '\0' Максимальные числа __int64 (long long)
+#define MAX_DEC_LEX 20
+#define MAX_HEX_LEX 19
+
 #define MAX_KEYWORD 16
 
 typedef char type_lex[MAX_LEX];

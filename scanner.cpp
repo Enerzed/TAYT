@@ -14,7 +14,7 @@ type_lex keyword[MAX_KEYWORD] =
 	"int", "short", "long", "__int64", "char", "if", "else", "main", "void"
 };
 
-int IndexKeyword[MAX_KEYWORD] = 
+int index_keyword[MAX_KEYWORD] = 
 {
 	TInt, TShort, TLong, T__Int64, TChar, TIf, TElse, TMain, TVoid
 };
@@ -105,12 +105,12 @@ start:
 			print_error("Invalid hexadecimal constant", lex);
 			return TErr;
 		}
-		while (isxdigit(text[pointer]) && i < MAX_LEX - 1) 
+		while (isxdigit(text[pointer]) && i < MAX_HEX_LEX - 1) 
 		{
 			lex[i++] = text[pointer++];
 		}
 		lex[i] = '\0';
-		if (i == MAX_LEX - 1 && isxdigit(text[pointer])) 
+		if (i == MAX_HEX_LEX - 1 && isxdigit(text[pointer])) 
 		{
 			lex[i] = '\0';
 			while (isxdigit(text[pointer]))
@@ -123,12 +123,12 @@ start:
 
 	// Decimal constants
 	if (isdigit(text[pointer])) {
-		while (isdigit(text[pointer]) && i < MAX_LEX - 1) 
+		while (isdigit(text[pointer]) && i < MAX_DEC_LEX - 1) 
 		{ // Added length check
 			lex[i++] = text[pointer++];
 		}
 		lex[i] = '\0';
-		if (i == MAX_LEX - 1 && isdigit(text[pointer]))
+		if (i == MAX_DEC_LEX - 1 && isdigit(text[pointer]))
 		{
 			while (isdigit(text[pointer]))
 				pointer++;
@@ -158,7 +158,7 @@ start:
 		{
 			if (strcmp(lex, keyword[j]) == 0) 
 			{
-				return IndexKeyword[j];
+				return index_keyword[j];
 			}
 		}
 		return TIdent;
@@ -262,6 +262,7 @@ void TScaner::get_data(const char* file_name)
 		text[MAX_TEXT - 1] = '\0';
 
 		std::cout << text << std::endl;
+		std::cout << "_____________________________________________________________________________________________________	" << std::endl;
 	}
 	else 
 	{
