@@ -44,6 +44,10 @@ int TScaner::scaner(type_lex lex)
 	int i = 0;
 	lex[0] = '\0';
 start:
+	while (text[pointer] == ' ' || text[pointer] == '\t' || text[pointer] == '\n')
+		pointer++;
+	i = 0;
+
 	// End of program
 	if (text[pointer] == '\0')
 	{
@@ -51,10 +55,6 @@ start:
 		lex[i] = '\0';
 		return TEnd;
 	}
-
-	while (text[pointer] == ' ' || text[pointer] == '\t' || text[pointer] == '\n')
-		pointer++;
-	i = 0;
 
 	// Comments one-line and multi-line
 	if (text[pointer] == '/') 
@@ -94,38 +94,70 @@ start:
 		}
 	}
 
-	// Hexidecimal constant
+	// Hexadecimal constant
 	if (text[pointer] == '0' && text[pointer + 1] == 'x')
 	{
-		pointer += 2;
-		while (isxdigit(text[pointer])) {
-			lex[i++] = text[pointer++];
+		lex[i++] = text[pointer++];
+		lex[i++] = text[pointer++];
+		if (!isxdigit(text[pointer]))
+		{ // Check for at least one hex digit
+			lex[i] = '\0';
+			print_error("Invalid hexadecimal constant", lex);
+			return TErr;
 		}
-		lex[i] = '\0';
-		return TConst16;
-	}
-
-	// Decimal constants
-	if (isdigit(text[pointer]))
-	{
-		while (isdigit(text[pointer]))
+		while (isxdigit(text[pointer]) && i < MAX_LEX - 1) 
 		{
 			lex[i++] = text[pointer++];
 		}
 		lex[i] = '\0';
+		if (i == MAX_LEX - 1 && isxdigit(text[pointer])) 
+		{
+			lex[i] = '\0';
+			while (isxdigit(text[pointer]))
+				pointer++;
+			print_error("Hexadecimal constant exceeds maximum lexeme length", lex);
+			return TErr;
+		}
+		return TConst16;
+	}
+
+	// Decimal constants
+	if (isdigit(text[pointer])) {
+		while (isdigit(text[pointer]) && i < MAX_LEX - 1) 
+		{ // Added length check
+			lex[i++] = text[pointer++];
+		}
+		lex[i] = '\0';
+		if (i == MAX_LEX - 1 && isdigit(text[pointer]))
+		{
+			while (isdigit(text[pointer]))
+				pointer++;
+			print_error("Decimal constant exceeds maximum lexeme length", lex);
+			return TErr;
+		}
 		return TConst10;
 	}
 
 	// Identifiers
 	if (isalpha(text[pointer]) || text[pointer] == '_') 
 	{
-		while (isalnum(text[pointer]) || text[pointer] == '_') 
-		{
+		while ((isalnum(text[pointer]) || text[pointer] == '_') && i < MAX_LEX - 1) 
+		{ // Added length check
 			lex[i++] = text[pointer++];
 		}
 		lex[i] = '\0';
-		for (int j = 0; j < MAX_KEYWORD; j++) {
-			if (strcmp(lex, keyword[j]) == 0) {
+		if (i == MAX_LEX - 1 && (isalnum(text[pointer]) || text[pointer] == '_'))
+		{
+			while (isalnum(text[pointer]) || text[pointer] == '_')
+				pointer++;
+			print_error("Identifier exceeds maximum lexeme length", lex);
+			return TErr;
+		}
+
+		for (int j = 0; j < MAX_KEYWORD; j++) 
+		{
+			if (strcmp(lex, keyword[j]) == 0) 
+			{
 				return IndexKeyword[j];
 			}
 		}
@@ -175,13 +207,15 @@ start:
 			// Not implementing NOT operation
 			else 
 			{
-				print_error("Unexpected token", &text[pointer - 1]);
+				lex[i] = '\0';
+				print_error("Unexpected token", lex);
 				return TErr;
 			}
 		case '>':
 			pointer++;
 			lex[i++] = '>';
-			if (text[pointer] == '=') {
+			if (text[pointer] == '=')
+			{
 				pointer++;
 				lex[i++] = '=';
 				lex[i] = '\0';
@@ -195,7 +229,8 @@ start:
 		case '<':
 			pointer++;
 			lex[i++] = '<';
-			if (text[pointer] == '=') {
+			if (text[pointer] == '=')
+			{
 				pointer++;
 				lex[i++] = '=';
 				lex[i] = '\0';
