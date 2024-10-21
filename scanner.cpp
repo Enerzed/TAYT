@@ -36,7 +36,7 @@ void TScaner::print_error(const char* error,const char* text)
 	else
 		std::cout << error << " " << text << std::endl;
 
-	// exit(0);
+	exit(0);
 }
 
 int TScaner::scaner(type_lex lex)
@@ -62,7 +62,7 @@ start:
 		pointer++;
 		if (text[pointer] == '/') 
 		{
-			std::cout << "Encountered comment line" << std::endl;
+			//std::cout << "Encountered comment line" << std::endl;
 			pointer++;
 			while (text[pointer] != '\n' && text[pointer] != '\0')
 				pointer++;
@@ -70,7 +70,7 @@ start:
 		}
 		else if (text[pointer] == '*') 
 		{
-			std::cout << "Encountered comment block" << std::endl;
+			//std::cout << "Encountered comment block" << std::endl;
 			pointer++;
 			while (text[pointer] != '*' || text[pointer + 1] != '/') 
 			{
