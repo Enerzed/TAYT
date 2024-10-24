@@ -1,3 +1,5 @@
+// file diagram.hpp
+
 #pragma once
 
 #include "scanner.hpp"
@@ -15,6 +17,7 @@ private:
 	void variable();					// Переменная
 	void array();						// Массив
 	void array_expression();			// Выражение одномерного массива
+	void array_ident();					// Идентификатор массива
 	void assignment();					// Присваивание
 	void expression();					// Выражение
 	void composite_operator();			// Составной оператор

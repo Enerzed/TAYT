@@ -32,9 +32,9 @@ int TScaner::get_pointer()
 void TScaner::print_error(const char* error,const char* text)
 {
 	if (text[0] == '\0')
-		std::cout << error << std::endl;
+		std::cout << line_counter << " " << error << std::endl;
 	else
-		std::cout << error << " " << text << std::endl;
+		std::cout << line_counter << " " << error << " " << text << std::endl;
 
 	exit(0);
 }
@@ -44,8 +44,18 @@ int TScaner::scaner(type_lex lex)
 	int i = 0;
 	lex[0] = '\0';
 start:
-	while (text[pointer] == ' ' || text[pointer] == '\t' || text[pointer] == '\n')
+	while (text[pointer] == ' ' || text[pointer] == '\t' || text[pointer] == '\n') {
+		if (text[pointer] == '\n')
+			if (std::find(break_line_positions.begin(), break_line_positions.end(), pointer) != break_line_positions.end())
+			{
+				line_counter++;
+				break_line_positions.clear();
+			}
+			else
+				break_line_positions.push_back(pointer);
+
 		pointer++;
+	}
 	i = 0;
 
 	// End of program
@@ -87,7 +97,6 @@ start:
 		else 
 		{
 			// Division
-			pointer++;
 			lex[i++] = '/';
 			lex[i++] = '\0';
 			return TDiv;

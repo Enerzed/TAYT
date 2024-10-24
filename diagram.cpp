@@ -1,3 +1,5 @@
+// file diagram.cpp
+
 #include "diagram.hpp"
 
 int TDiagram::look_forward(int pos) {
@@ -18,15 +20,26 @@ void TDiagram::program() {
 		description();
 		type = look_forward(1);
 	}
+	if (type != TEnd) {
+		type = scaner->scaner(lex);
+		scaner->print_error("Expected end", lex);
+	}
 }
 
 void TDiagram::description() {
 	type_lex lex;
 	int type, pointer;
 	type = look_forward(1);
-	if (type == TInt || type == TShort || type == TLong || type == T__Int64 || type == TChar)
+	if (type == TInt || type == TShort || type == TLong || type == T__Int64 || type == TChar) {
 		data();
-	else function();
+		return;
+	}
+	if (type == TVoid) {
+		function();
+		return;
+	}
+	type = scaner->scaner(lex);
+	scaner->print_error("Expected void or type", lex);
 }
 
 void TDiagram::data() {
@@ -107,23 +120,29 @@ void TDiagram::element() {
 		array();
 		return;
 	}
+	else {
+		type = scaner->scaner(lex);
+		scaner->print_error("Expected element", lex);
+	}
 }
 
 void TDiagram::variable() {
 	type_lex lex;
 	int type, pointer;
 
-	pointer = scaner->get_pointer();
-	type = scaner->scaner(lex);
-	if (type != TIdent)
-		scaner->print_error("Expected identificator", lex);
-
 	type = look_forward(1);
-	if (type == TEval)
-	{
-		scaner->set_pointer(pointer);
-		assignment();
+
+	if (type != TIdent) {
+		type = scaner->scaner(lex);
+		scaner->print_error("Expected identificator", lex);
 	}
+
+	type = look_forward(2);
+	if (type == TEval) {
+		assignment();
+		return;
+	}
+	type = scaner->scaner(lex);
 }
 
 void TDiagram::array() {
@@ -173,13 +192,35 @@ void TDiagram::array_expression() {
 
 }
 
-void TDiagram::assignment() {
+void TDiagram::array_ident() {
+
 	type_lex lex;
-	int type;
+	int type, pointer;
 
 	type = scaner->scaner(lex);
-	if (type != TIdent)
+	if (type != TLeftSquareBracket) {
+		scaner->print_error("Expected [", lex);
+	}
+
+	expression();
+
+	type = scaner->scaner(lex);
+	if (type != TRightSquareBracket) {
+		scaner->print_error("Expected ]", lex);
+	}
+}
+
+void TDiagram::assignment() {
+	type_lex lex;
+
+	int type = scaner->scaner(lex);
+	if (type != TIdent) {
+		type = scaner->scaner(lex);
 		scaner->print_error("Expected identificator", lex);
+	}
+	type = look_forward(1);
+	if (type == TLeftSquareBracket)
+		array_ident();
 
 	type = scaner->scaner(lex);
 	if (type != TEval)
@@ -216,11 +257,12 @@ void TDiagram::operators_and_descriptions() {
 	int type, pointer;
 	type = look_forward(1);
 	while (type != TRightBrace) {
-		type = look_forward(1);
 		if (type == TInt || type == TShort || type == TLong || type == T__Int64 || type == TChar) {
 			data();
 		}
 		else operator_();
+		type = look_forward(1);
+
 	}
 }
 
@@ -228,9 +270,10 @@ void TDiagram::operator_() {
 	type_lex lex;
 	int type, pointer;
 	type = look_forward(1);
-	if (type == TSemicolon)
+	if (type == TSemicolon) {
 		type = scaner->scaner(lex);
 		return;
+	}
 	if (type == TIf) {
 		condition();
 		return;
@@ -246,10 +289,27 @@ void TDiagram::operator_() {
 		function_call();
 		return;
 	}
-	if (type == TIdent && type == TEval) {
+	if (type == TIdent && type2 == TEval) {
 		assignment();
 		return;
 	}
+	if (type == TIdent && type2 == TLeftSquareBracket) {
+		type = scaner->scaner(lex);
+		array_ident();
+		type = look_forward(1);
+		if (type == TEval) {
+			type = scaner->scaner(lex);
+			expression();
+		}
+		return;
+	}
+	if (type == TIdent)
+	{
+		type = scaner->scaner(lex);
+		return;
+	}
+
+	type = scaner->scaner(lex);
 	scaner->print_error("Expected operator", lex);
 }
 
@@ -359,23 +419,26 @@ void TDiagram::elementary_expression() {
 		type = scaner->scaner(lex);
 		int type = look_forward(1);
 		if (type == TLeftSquareBracket) {
-			type = scaner->scaner(lex);
-			expression();
-			type = scaner->scaner(lex);
-			if (type != TRightSquareBracket)
-				scaner->print_error("Expected ]", lex);
+			array_ident();
+			return;
 		}
+		return;
 	}
-	else if (type == TConst10 || type == TConst16)
+	else if (type == TConst10 || type == TConst16) {
 		type = scaner->scaner(lex);
+		return;
+	}
 	else if (type == TLeftBracket) {
 		type = scaner->scaner(lex);
 		expression();
 		type = scaner->scaner(lex);
 		if (type != TRightBracket)
 			scaner->print_error("Expected )", lex);
+		return;
 	}
-	else
+	else {
+		type = scaner->scaner(lex);
 		scaner->print_error("Expected expression", lex);
+	}
 }
 
