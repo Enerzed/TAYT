@@ -1,3 +1,4 @@
+// file scanner.hpp
 #pragma once
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -16,6 +17,7 @@ private:
 	type_mod text;
 	int pointer;
 	int line_counter = 1;
+	int position_in_line = 0;
 	std::vector<int> break_line_positions;
 public:
 	void set_pointer(int);

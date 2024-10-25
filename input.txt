@@ -1,13 +1,13 @@
 int a[31] = {1==1, 2+3 , 33}, a = 2, a, b;
 __int64 a;
 
-a = 3;
-
 void  main() {
 	a[1] = a[2% 2 *2 -  5];
 	int a;
 	c = a + b / a[3] * b;
 }
+
+void func();
 
 void func() {c=0x16;
 	x=a[0x16];;a=b}

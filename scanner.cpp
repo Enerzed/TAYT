@@ -1,3 +1,4 @@
+// file scanner.cpp
 #include "scanner.hpp"
 #include <fstream>
 #include <cctype>
@@ -31,10 +32,14 @@ int TScaner::get_pointer()
 
 void TScaner::print_error(const char* error,const char* text)
 {
+	if (break_line_positions.empty())
+		position_in_line = pointer;
+	else 
+		position_in_line = pointer - break_line_positions.back() ;
 	if (text[0] == '\0')
-		std::cout << line_counter << " " << error << std::endl;
+		std::cout << "Line " << line_counter << " position " << position_in_line << ": " << error << std::endl;
 	else
-		std::cout << line_counter << " " << error << " " << text << std::endl;
+		std::cout << "Line " << line_counter << " position " << position_in_line << ": " << error << " " << text << std::endl;
 
 	exit(0);
 }
@@ -46,14 +51,11 @@ int TScaner::scaner(type_lex lex)
 start:
 	while (text[pointer] == ' ' || text[pointer] == '\t' || text[pointer] == '\n') {
 		if (text[pointer] == '\n')
-			if (std::find(break_line_positions.begin(), break_line_positions.end(), pointer) != break_line_positions.end())
+			if (std::find(break_line_positions.begin(), break_line_positions.end(), pointer) == break_line_positions.end())
 			{
 				line_counter++;
-				break_line_positions.clear();
-			}
-			else
 				break_line_positions.push_back(pointer);
-
+			}
 		pointer++;
 	}
 	i = 0;

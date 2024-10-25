@@ -22,7 +22,7 @@ void TDiagram::program() {
 	}
 	if (type != TEnd) {
 		type = scaner->scaner(lex);
-		scaner->print_error("Expected end", lex);
+		scaner->print_error("Expected end got", lex);
 	}
 }
 
@@ -39,7 +39,7 @@ void TDiagram::description() {
 		return;
 	}
 	type = scaner->scaner(lex);
-	scaner->print_error("Expected void or type", lex);
+	scaner->print_error("Expected void or type got", lex);
 }
 
 void TDiagram::data() {
@@ -49,7 +49,7 @@ void TDiagram::data() {
 	list();
 	type_ = scaner->scaner(lex);
 	if (type_ != TSemicolon)
-		scaner->print_error("Expected ;", lex);
+		scaner->print_error("Expected ; got", lex);
 }
 
 void TDiagram::function() {
@@ -58,29 +58,29 @@ void TDiagram::function() {
 
 	type = scaner->scaner(lex);
 	if (type != TVoid)
-		scaner->print_error("Expected void", lex);
+		scaner->print_error("Expected void got", lex);
 
 	type = scaner->scaner(lex);
 	if (type != TIdent && type != TMain)
-		scaner->print_error("Expected identificator", lex);
+		scaner->print_error("Expected identificator got", lex);
 
 	type = scaner->scaner(lex);
 	if (type != TLeftBracket)
-		scaner->print_error("Expected (", lex);
+		scaner->print_error("Expected ( got", lex);
 
 	type = scaner->scaner(lex);
 	if (type != TRightBracket)
-		scaner->print_error("Expected )", lex);
+		scaner->print_error("Expected ) got", lex);
 
 	type = scaner->scaner(lex);
 	if (type != TLeftBrace)
-		scaner->print_error("Expected {", lex);
+		scaner->print_error("Expected { got", lex);
 
 	operators_and_descriptions();
 
 	type = scaner->scaner(lex);
 	if (type != TRightBrace)
-		scaner->print_error("Expected }", lex);
+		scaner->print_error("Expected } got", lex);
 }
 
 void TDiagram::type() {
@@ -88,7 +88,7 @@ void TDiagram::type() {
 	int type, pointer;
 	type = scaner->scaner(lex);
 	if (type != TInt && type != TShort && type != TLong && type != T__Int64 && type != TChar)
-		scaner->print_error("Expected type (int, short, long, __int64, char)", lex);
+		scaner->print_error("Expected type (int, short, long, __int64, char) got", lex);
 }
 
 void TDiagram::list() {
@@ -122,7 +122,7 @@ void TDiagram::element() {
 	}
 	else {
 		type = scaner->scaner(lex);
-		scaner->print_error("Expected element", lex);
+		scaner->print_error("Expected element got", lex);
 	}
 }
 
@@ -134,7 +134,7 @@ void TDiagram::variable() {
 
 	if (type != TIdent) {
 		type = scaner->scaner(lex);
-		scaner->print_error("Expected identificator", lex);
+		scaner->print_error("Expected identificator got", lex);
 	}
 
 	type = look_forward(2);
@@ -149,18 +149,18 @@ void TDiagram::array() {
 	type_lex lex;
 	int type = scaner->scaner(lex);
 	if (type != TIdent)
-		scaner->print_error("Expected identificator", lex);
+		scaner->print_error("Expected identificator got", lex);
 
 	type = scaner->scaner(lex);
 	if (type != TLeftSquareBracket) {
-		scaner->print_error("Expected [", lex);
+		scaner->print_error("Expected [ got", lex);
 	}
 
 	expression(); 
 
 	type = scaner->scaner(lex);
 	if (type != TRightSquareBracket) {
-		scaner->print_error("Expected ]", lex);
+		scaner->print_error("Expected ] got", lex);
 	}
 
 	type = look_forward(1);
@@ -168,11 +168,11 @@ void TDiagram::array() {
 		type = scaner->scaner(lex);
 		type = scaner->scaner(lex);
 		if (type != TLeftBrace)
-			scaner->print_error("Expected {", lex);
+			scaner->print_error("Expected { got", lex);
 		array_expression();
 		type = scaner->scaner(lex);
 		if (type != TRightBrace)
-			scaner->print_error("Expected }", lex);
+			scaner->print_error("Expected } got", lex);
 	}
 }
 
@@ -199,14 +199,14 @@ void TDiagram::array_ident() {
 
 	type = scaner->scaner(lex);
 	if (type != TLeftSquareBracket) {
-		scaner->print_error("Expected [", lex);
+		scaner->print_error("Expected [ got", lex);
 	}
 
 	expression();
 
 	type = scaner->scaner(lex);
 	if (type != TRightSquareBracket) {
-		scaner->print_error("Expected ]", lex);
+		scaner->print_error("Expected ] got", lex);
 	}
 }
 
@@ -216,7 +216,7 @@ void TDiagram::assignment() {
 	int type = scaner->scaner(lex);
 	if (type != TIdent) {
 		type = scaner->scaner(lex);
-		scaner->print_error("Expected identificator", lex);
+		scaner->print_error("Expected identificator got", lex);
 	}
 	type = look_forward(1);
 	if (type == TLeftSquareBracket)
@@ -224,7 +224,7 @@ void TDiagram::assignment() {
 
 	type = scaner->scaner(lex);
 	if (type != TEval)
-		scaner->print_error("Expected =", lex);
+		scaner->print_error("Expected = got", lex);
 
 	expression();
 }
@@ -246,10 +246,10 @@ void TDiagram::composite_operator() {
 	int type, pointer;
 	type = scaner->scaner(lex);
 	if (type != TLeftBrace)
-		scaner->print_error("Expected {", lex);
+		scaner->print_error("Expected { got", lex);
 	operators_and_descriptions();
 	if (type != TRightBrace)
-		scaner->print_error("Expected }", lex);
+		scaner->print_error("Expected } got", lex);
 }
 
 void TDiagram::operators_and_descriptions() {
@@ -310,7 +310,7 @@ void TDiagram::operator_() {
 	}
 
 	type = scaner->scaner(lex);
-	scaner->print_error("Expected operator", lex);
+	scaner->print_error("Expected operator got", lex);
 }
 
 void TDiagram::function_call() {
@@ -319,19 +319,19 @@ void TDiagram::function_call() {
 
 	type = scaner->scaner(lex);
 	if (type != TIdent)
-		scaner->print_error("Expected identificator", lex);
+		scaner->print_error("Expected identificator got", lex);
 
 	type = scaner->scaner(lex);
 	if (type != TLeftBracket)
-		scaner->print_error("Expected (", lex);
+		scaner->print_error("Expected ( got", lex);
 
 	type = scaner->scaner(lex);
 	if (type != TRightBracket)
-		scaner->print_error("Expected )", lex);
+		scaner->print_error("Expected ) got", lex);
 
 	type = scaner->scaner(lex);
 	if (type != TSemicolon)
-		scaner->print_error("Expected ;", lex);
+		scaner->print_error("Expected ; got", lex);
 }
 
 void TDiagram::condition() {
@@ -340,16 +340,16 @@ void TDiagram::condition() {
 
 	type = scaner->scaner(lex);
 	if (type != TIf)
-		scaner->print_error("Expected if", lex);
+		scaner->print_error("Expected if got", lex);
 
 	type = scaner->scaner(lex);
 	if (type != TLeftBracket)
-		scaner->print_error("Expected (", lex);
+		scaner->print_error("Expected ( got", lex);
 
 	expression();
 	type = scaner->scaner(lex);
 	if (type != TRightBracket)
-		scaner->print_error("Expected )", lex);
+		scaner->print_error("Expected ) got", lex);
 
 	operator_();
 
@@ -433,12 +433,12 @@ void TDiagram::elementary_expression() {
 		expression();
 		type = scaner->scaner(lex);
 		if (type != TRightBracket)
-			scaner->print_error("Expected )", lex);
+			scaner->print_error("Expected ) got ", lex);
 		return;
 	}
 	else {
 		type = scaner->scaner(lex);
-		scaner->print_error("Expected expression", lex);
+		scaner->print_error("Expected expression got", lex);
 	}
 }
 
