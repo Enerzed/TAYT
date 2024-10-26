@@ -244,10 +244,14 @@ void TDiagram::expression() {
 void TDiagram::composite_operator() {
 	type_lex lex;
 	int type, pointer;
+
 	type = scaner->scaner(lex);
 	if (type != TLeftBrace)
 		scaner->print_error("Expected { got", lex);
+
 	operators_and_descriptions();
+
+	type = scaner->scaner(lex);
 	if (type != TRightBrace)
 		scaner->print_error("Expected } got", lex);
 }
