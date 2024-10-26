@@ -1,1 +1,7 @@
-void func(){{{}{}{};;;;}}
+void func()
+{
+ if (a*b==3*2) 
+ a = 3;
+ else a = 2;
+ a = b;
+}

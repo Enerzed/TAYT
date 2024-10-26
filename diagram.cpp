@@ -273,28 +273,36 @@ void TDiagram::operators_and_descriptions() {
 void TDiagram::operator_() {
 	type_lex lex;
 	int type, pointer;
+
 	type = look_forward(1);
 	if (type == TSemicolon) {
 		type = scaner->scaner(lex);
 		return;
 	}
+
 	if (type == TIf) {
 		condition();
 		return;
 	}
+
 	if (type == TLeftBrace) {
 		composite_operator();
 		return;
 	}
 
-	type = look_forward(1);
 	int type2 = look_forward(2);
 	if (type == TIdent && type2 == TLeftBracket) {
 		function_call();
+		type = scaner->scaner(lex);
+		if (type != TSemicolon)
+			scaner->print_error("Expected ; got", lex);
 		return;
 	}
 	if (type == TIdent && type2 == TEval) {
 		assignment();
+		type = scaner->scaner(lex);
+		if (type != TSemicolon)
+			scaner->print_error("Expected ; got", lex);
 		return;
 	}
 	if (type == TIdent && type2 == TLeftSquareBracket) {
@@ -305,11 +313,9 @@ void TDiagram::operator_() {
 			type = scaner->scaner(lex);
 			expression();
 		}
-		return;
-	}
-	if (type == TIdent)
-	{
 		type = scaner->scaner(lex);
+		if (type != TSemicolon)
+			scaner->print_error("Expected ; got", lex);
 		return;
 	}
 
@@ -351,6 +357,7 @@ void TDiagram::condition() {
 		scaner->print_error("Expected ( got", lex);
 
 	expression();
+
 	type = scaner->scaner(lex);
 	if (type != TRightBracket)
 		scaner->print_error("Expected ) got", lex);
@@ -358,7 +365,6 @@ void TDiagram::condition() {
 	operator_();
 
 	type = look_forward(1);
-
 	if (type == TElse)
 	{
 		type = scaner->scaner(lex);
