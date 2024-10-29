@@ -1,3 +1,7 @@
+
+
+void abra(a);
+
 void func()
 {
  if (a*b==3*2) 

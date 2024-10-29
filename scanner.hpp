@@ -11,6 +11,7 @@
 #include "defs.hpp"
 
 
+
 class TScaner
 {
 private:

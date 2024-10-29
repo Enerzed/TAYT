@@ -30,7 +30,7 @@ int TScaner::get_pointer()
 	return pointer;
 }
 
-void TScaner::print_error(const char* error,const char* text)
+void TScaner::print_error(const char* error, const char* text)
 {
 	if (break_line_positions.empty())
 		position_in_line = pointer;

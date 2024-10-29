@@ -1,11 +1,12 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 
-#include "scanner.hpp"
 #include "diagram.hpp"
 #include <iomanip>
 
+
 int main(int argc, char* argv[])
 {
+    const int a = 1 == 2;
     TScaner* scaner;
     scaner = new TScaner("input.txt");
     TDiagram* diagram = new TDiagram(scaner);

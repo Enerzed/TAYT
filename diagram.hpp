@@ -2,12 +2,13 @@
 
 #pragma once
 
-#include "scanner.hpp"
+#include "tree.hpp"
 
 class TDiagram
 {
 private:
 	TScaner* scaner;
+	Tree* root;
 	void description();					// Описание
 	void data();						// Данные
 	void function();					// Функция
@@ -31,9 +32,12 @@ private:
 	void unary_operation();				// Унарная операция
 	void elementary_expression();		// Элементарное выражение
 	int look_forward(int pointer);
+	int scan(type_lex lex);
 public:
 	TDiagram(TScaner* scaner) {
 		this->scaner = scaner;
+		this->root = new Tree(scaner);
+		this->root->set_current(this->root);
 	}
 	~TDiagram() {}
 	void program();						// Программа
