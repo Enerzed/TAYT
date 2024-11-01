@@ -6,7 +6,6 @@
 
 int main(int argc, char* argv[])
 {
-    const int a = 1 == 2;
     TScaner* scaner;
     scaner = new TScaner("input.txt");
     TDiagram* diagram = new TDiagram(scaner);
@@ -19,6 +18,7 @@ int main(int argc, char* argv[])
         std::cout << "OK" << std::endl;
     else
 		std::cout << "ERROR" << std::endl;
+    diagram->root->print();
 }
 
 /*

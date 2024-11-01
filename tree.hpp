@@ -11,6 +11,7 @@ enum type_data {
 	TYPE_LONG = 3,
 	TYPE__INT64 = 4,
 	TYPE_CHAR = 5,
+	TYPE_VOID = 6
 };
 
 enum type_object {
@@ -53,12 +54,15 @@ public:
 	Tree* find_right_left(type_lex);
 
 	void print();
-
-	Tree* semantic_include(type_lex);
+	Node* get_node();
+	void set_node(Node* node);
+	Tree* semantic_include(type_lex, type_object, type_data);
 	void set_current(Tree* tree);
 	Tree* get_current();
 	void semantic_set_type(Tree*, type_data);
-	Tree* semantic_get_type(type_lex);
+	Tree* semantic_get_type(type_lex, type_object);
+	void semantic_set_object(Tree*, type_object);
+	Tree* semantic_get_object(type_lex);
 	void semantic_set_init(Tree*, int);
 	Tree* semantic_get_init(type_lex);
 	void semantic_set_array_size(Tree*, int);

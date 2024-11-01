@@ -71,6 +71,8 @@ void TDiagram::function() {
 	if (type != TIdent && type != TMain)
 		scaner->print_error("Expected identificator got", lex);
 
+	Tree* t = root->semantic_include(lex, OBJECT_FUNCTION, TYPE_VOID);
+
 	type = scan(lex);
 	if (type != TLeftBracket)
 		scaner->print_error("Expected ( got", lex);
@@ -88,6 +90,8 @@ void TDiagram::function() {
 	type = scan(lex);
 	if (type != TRightBrace)
 		scaner->print_error("Expected } got", lex);
+
+	root->set_current(t);
 }
 
 void TDiagram::type() {
@@ -96,6 +100,19 @@ void TDiagram::type() {
 	type = scan(lex);
 	if (type != TInt && type != TShort && type != TLong && type != T__Int64 && type != TChar)
 		scaner->print_error("Expected type (int, short, long, __int64, char) got", lex);
+	// set last type for semantic analyzer
+	if (type == TInt)
+		last_type_data = TYPE_INT;
+	else if (type == TShort)
+		last_type_data = TYPE_SHORT;
+	else if (type == TLong)
+		last_type_data = TYPE_LONG;
+	else if (type == T__Int64)
+		last_type_data = TYPE__INT64;
+	else if (type == TChar)
+		last_type_data = TYPE_CHAR;
+	else
+		last_type_data = TYPE_UNKNOWN;
 }
 
 void TDiagram::list() {
@@ -144,9 +161,15 @@ void TDiagram::variable() {
 		scaner->print_error("Expected identificator got", lex);
 	}
 
+	int pointer = scaner->get_pointer();
+	type = scan(lex);
+	Tree* t = root->semantic_include(lex, OBJECT_VARIABLE, last_type_data);
+	scaner->set_pointer(pointer);
+
 	type = look_forward(2);
 	if (type == TEval) {
 		assignment();
+		root->semantic_set_init(t, 1);
 		return;
 	}
 	type = scan(lex);
@@ -159,6 +182,8 @@ void TDiagram::array() {
 	type = scan(lex);
 	if (type != TIdent)
 		scaner->print_error("Expected identificator got", lex);
+
+	Tree* t = root->semantic_include(lex, OBJECT_ARRAY, last_type_data);
 
 	type = scan(lex);
 	if (type != TLeftSquareBracket) {
@@ -182,6 +207,7 @@ void TDiagram::array() {
 		type = scan(lex);
 		if (type != TRightBrace)
 			scaner->print_error("Expected } got", lex);
+		root->semantic_set_init(t, 1);
 	}
 }
 
@@ -228,6 +254,8 @@ void TDiagram::assignment() {
 	if (type != TIdent) {
 		scaner->print_error("Expected identificator got", lex);
 	}
+
+	Tree* t = root->semantic_get_type(lex, OBJECT_VARIABLE);
 
 	type = look_forward(1);
 	if (type == TLeftSquareBracket)
@@ -306,9 +334,6 @@ void TDiagram::operator_() {
 	int type2 = look_forward(2);
 	if (type == TIdent && type2 == TLeftBracket) {
 		function_call();
-		type = scan(lex);
-		if (type != TSemicolon)
-			scaner->print_error("Expected ; got", lex);
 		return;
 	}
 	if (type == TIdent && type2 == TEval) {
@@ -320,6 +345,9 @@ void TDiagram::operator_() {
 	}
 	if (type == TIdent && type2 == TLeftSquareBracket) {
 		type = scan(lex);
+
+		Tree* t = root->semantic_get_type(lex, OBJECT_ARRAY);
+
 		array_ident();
 		type = look_forward(1);
 		if (type == TEval) {
@@ -343,6 +371,8 @@ void TDiagram::function_call() {
 	type = scan(lex);
 	if (type != TIdent)
 		scaner->print_error("Expected identificator got", lex);
+
+	Tree* t = root->semantic_get_type(lex, OBJECT_FUNCTION);
 
 	type = scan(lex);
 	if (type != TLeftBracket)
@@ -446,9 +476,13 @@ void TDiagram::elementary_expression() {
 		type = scan(lex);
 		int type = look_forward(1);
 		if (type == TLeftSquareBracket) {
+			Tree* t = root->semantic_get_type(lex, OBJECT_ARRAY);
 			array_ident();
 			return;
 		}
+		Tree* t = root->semantic_get_type(lex, OBJECT_VARIABLE);
+		if (t->get_node()->init != 1)
+			scaner->print_error("Variable not initialized", lex);
 		return;
 	}
 	else if (type == TConst10 || type == TConst16) {
@@ -468,4 +502,3 @@ void TDiagram::elementary_expression() {
 		scaner->print_error("Expected expression got", lex);
 	}
 }
-

@@ -36,7 +36,9 @@ Tree* Tree::find_up(type_lex lex) {
 
 Tree* Tree::find_up(Tree* tree, type_lex lex) {
 	Tree* t = tree;
-	while(t != NULL && memcmp(lex, t->node->lex, std::max(strlen(lex), strlen(t->node->lex))) != 0) {
+	while (t != NULL) {
+			if (memcmp(lex, t->node->lex, std::max(strlen(lex), strlen(t->node->lex))) == 0)
+				break;
 		t = t->parent;
 	}
 	return(t);
@@ -44,10 +46,9 @@ Tree* Tree::find_up(Tree* tree, type_lex lex) {
 
 Tree* Tree::find_up_at_level(Tree* tree, type_lex lex) {
 	Tree* t = tree;
-	while (t != NULL && t->parent->right != t) {
+	while (t != NULL && t->parent != NULL && t->parent->right != t) {
 		if (memcmp(lex, t->node->lex, std::max(strlen(lex), strlen(t->node->lex))) == 0)
 			return(t);
-
 		t = t->parent;
 	}
 	return NULL;
@@ -78,8 +79,32 @@ void Tree::semantic_set_type(Tree* tree, type_data type) {
 	tree->node->type = type;
 }
 
-Tree* Tree::semantic_get_type(type_lex lex) {
-	return(find_up(this, lex));
+Tree* Tree::semantic_get_type(type_lex lex, type_object object) {
+	Tree* t = find_up(current, lex);
+	if (t == NULL)
+		scaner->print_error("Identifier not found", lex);
+	if (t->node->object != object)
+		scaner->print_error("Identifier used incorrectly", lex);
+	return(t);
+}
+
+void Tree::semantic_set_object(Tree* tree, type_object object) {
+	tree->node->object = object;
+}
+
+Tree* Tree::semantic_get_object(type_lex lex) {
+	Tree* t = find_up(current, lex);
+	if (t == NULL)
+		scaner->print_error("Identifier not found", lex);
+	return(t);
+}
+
+void Tree::set_node(Node* node) {
+	this->node = node;
+}
+
+Node* Tree::get_node() {
+	return node;
 }
 
 void Tree::semantic_set_init(Tree* tree, int init) {
@@ -87,7 +112,12 @@ void Tree::semantic_set_init(Tree* tree, int init) {
 }
 
 Tree* Tree::semantic_get_init(type_lex lex) {
-	return(find_up(this, lex));
+	Tree* t = find_up(current, lex);
+	if (t == NULL)
+		scaner->print_error("Identifier not found", lex);
+	if (t->node->object != OBJECT_VARIABLE || t->node->object != OBJECT_ARRAY)
+		scaner->print_error("Identifier used incorrectly", lex);
+	return(t);
 }
 
 void Tree::semantic_set_array_size(Tree* tree, int array_size) {
@@ -95,21 +125,59 @@ void Tree::semantic_set_array_size(Tree* tree, int array_size) {
 }
 
 Tree* Tree::semantic_get_array_size(type_lex lex) {
-	return(find_up(this, lex));
+	Tree* t = find_up(this, lex);
+	if (t == NULL)
+		scaner->print_error("Identifier not found", lex);
+	if (t->node->object != OBJECT_ARRAY)
+		scaner->print_error("Identifier is not an array", lex);
+	return(t);
 }
 
-Tree* Tree::semantic_include(type_lex lex) {
-	if (is_exists(this, lex))
+Tree* Tree::semantic_include(type_lex lex, type_object object, type_data type) {
+	if (is_exists(current, lex))
 		scaner->print_error("Identifier already exists", lex);
+	//std::cout << "include: " << lex << std::endl;
 	Tree* t; Node n;
-	memcpy(n.lex, lex, strlen(lex) + 1);
-	n.array_size = -1;
-	n.init = -1;
-	n.type = TYPE_UNKNOWN;
-	n.object = OBJECT_UNKNOWN;
-	current->set_left(&n);
-	current = current->left;
-	return current;
+	if (object == OBJECT_VARIABLE) {
+		memcpy(n.lex, lex, strlen(lex) + 1);
+		n.array_size = -1;
+		n.init = -1;
+		n.type = type;
+		n.object = object;
+		current->set_left(&n);
+		current = current->left;
+		return current;
+	}
+	if (object == OBJECT_ARRAY) {
+		memcpy(n.lex, lex, strlen(lex) + 1);
+		n.array_size = -1;
+		n.init = -1;
+		n.type = type;
+		n.object = object;
+		current->set_left(&n);
+		current = current->left;
+		return current;
+	}
+	if (object == OBJECT_FUNCTION) {
+		memcpy(n.lex, lex, strlen(lex) + 1);
+		//std::cout << "n.lex: " << n.lex << std::endl;
+		n.array_size = -1;
+		n.init = -1;
+		n.type = type;
+		n.object = object;
+		current->set_left(&n);
+		current = current->left;
+		t = current;
+		memcpy(&n.lex, &"", 2);
+		n.array_size = -1;
+		n.init = -1;
+		n.type = type;
+		n.object = object;
+		current->set_right(&n);
+		current = current->right;
+		return t;
+	}
+	return NULL;
 }
 
 void Tree::print() {
@@ -126,9 +194,9 @@ void Tree::print() {
 }
 
 int Tree::is_exists(Tree* tree, type_lex lex) {
-	if (find_up_at_level(tree, lex) != NULL)
-		return 1;
-	return 0;
+	if (find_up_at_level(tree, lex) == NULL)
+		return 0;
+	return 1;
 }
 
 
