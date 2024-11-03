@@ -289,11 +289,15 @@ void TDiagram::composite_operator() {
 	if (type != TLeftBrace)
 		scaner->print_error("Expected { got", lex);
 
+	Tree* t = root->semantic_include(lex, OBJECT_UNKNOWN, TYPE_UNKNOWN);
+
 	operators_and_descriptions();
 
 	type = scan(lex);
 	if (type != TRightBrace)
 		scaner->print_error("Expected } got", lex);
+
+	root->set_current(t);
 }
 
 void TDiagram::operators_and_descriptions() {

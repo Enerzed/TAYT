@@ -84,7 +84,15 @@ Tree* Tree::semantic_get_type(type_lex lex, type_object object) {
 	if (t == NULL)
 		scaner->print_error("Identifier not found", lex);
 	if (t->node->object != object)
+	{
+		if (t->node->object == OBJECT_VARIABLE)
+			std::cout << lex << " is a variable" << std::endl;
+		if (t->node->object == OBJECT_ARRAY)
+			std::cout << lex << " is an array" << std::endl;
+		if (t->node->object == OBJECT_FUNCTION)
+			std::cout << lex << " is a function" << std::endl;
 		scaner->print_error("Identifier used incorrectly", lex);
+	}
 	return(t);
 }
 
@@ -134,8 +142,9 @@ Tree* Tree::semantic_get_array_size(type_lex lex) {
 }
 
 Tree* Tree::semantic_include(type_lex lex, type_object object, type_data type) {
-	if (is_exists(current, lex))
-		scaner->print_error("Identifier already exists", lex);
+	if (object != OBJECT_UNKNOWN)
+		if (is_exists(current, lex))
+			scaner->print_error("Identifier already exists", lex);
 	//std::cout << "include: " << lex << std::endl;
 	Tree* t; Node n;
 	if (object == OBJECT_VARIABLE) {
@@ -160,7 +169,24 @@ Tree* Tree::semantic_include(type_lex lex, type_object object, type_data type) {
 	}
 	if (object == OBJECT_FUNCTION) {
 		memcpy(n.lex, lex, strlen(lex) + 1);
-		//std::cout << "n.lex: " << n.lex << std::endl;
+		n.array_size = -1;
+		n.init = -1;
+		n.type = type;
+		n.object = object;
+		current->set_left(&n);
+		current = current->left;
+		t = current;
+		memcpy(&n.lex, &"", 2);
+		n.array_size = -1;
+		n.init = -1;
+		n.type = type;
+		n.object = object;
+		current->set_right(&n);
+		current = current->right;
+		return t;
+	}
+	if (object == OBJECT_UNKNOWN) {
+		memcpy(n.lex, lex, strlen(lex) + 1);
 		n.array_size = -1;
 		n.init = -1;
 		n.type = type;
