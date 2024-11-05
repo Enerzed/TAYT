@@ -260,6 +260,7 @@ void TDiagram::assignment() {
 
 	Tree* t = root->semantic_get_type(lex, OBJECT_VARIABLE);
 	TData* data = &root->get_current_node()->data;
+	root->semantic_set_init(t, 1);
 
 	type = look_forward(1);
 	if (type == TLeftSquareBracket)
