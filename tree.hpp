@@ -21,12 +21,30 @@ enum type_object {
 	OBJECT_FUNCTION = 3
 };
 
+union type_value {
+	int data_as_int;
+	int* array_as_int;
+	short data_as_short;
+	short* array_as_short;
+	long data_as_long;
+	long* array_as_long;
+	__int64 data_as__int64;
+	__int64* array_as__int64;
+	char data_as_char;
+	char* array_as_char;
+};
+
+struct TData {
+	type_data type;
+	type_value value;
+};
+
 class Tree;
 
 struct Node {
 	type_lex lex;
 	type_object object;
-	type_data type;
+	TData data;
 	int init;
 	int array_size;
 	Tree* pointer;
@@ -52,8 +70,9 @@ public:
 	Tree* find_up_at_level(Tree*, type_lex);
 	Tree* find_right_left(Tree*, type_lex);
 	Tree* find_right_left(type_lex);
-
 	void print();
+	Node* get_current_node();
+	void set_current_node(Node* node);
 	Node* get_node();
 	void set_node(Node* node);
 	Tree* semantic_include(type_lex, type_object, type_data);

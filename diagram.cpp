@@ -184,13 +184,14 @@ void TDiagram::array() {
 		scaner->print_error("Expected identificator got", lex);
 
 	Tree* t = root->semantic_include(lex, OBJECT_ARRAY, last_type_data);
+	TData* data = &root->get_current_node()->data;
 
 	type = scan(lex);
 	if (type != TLeftSquareBracket) {
 		scaner->print_error("Expected [ got", lex);
 	}
 
-	expression(); 
+	expression(data); 
 
 	type = scan(lex);
 	if (type != TRightSquareBracket) {
@@ -217,11 +218,12 @@ void TDiagram::array_expression() {
 
 	type = look_forward(1);
 	if (type != TRightBrace) {
-		expression();
+		TData* data = &root->get_current_node()->data;
+		expression(data);
 		type = look_forward(1);
 		while (type == TComma) {
 			type = scan(lex);
-			expression();
+			expression(data);
 			type = look_forward(1);
 		}
 	}
@@ -238,7 +240,8 @@ void TDiagram::array_ident() {
 		scaner->print_error("Expected [ got", lex);
 	}
 
-	expression();
+	TData* data = &root->get_current_node()->data;
+	expression(data);
 
 	type = scan(lex);
 	if (type != TRightSquareBracket) {
@@ -256,6 +259,7 @@ void TDiagram::assignment() {
 	}
 
 	Tree* t = root->semantic_get_type(lex, OBJECT_VARIABLE);
+	TData* data = &root->get_current_node()->data;
 
 	type = look_forward(1);
 	if (type == TLeftSquareBracket)
@@ -265,18 +269,18 @@ void TDiagram::assignment() {
 	if (type != TEval)
 		scaner->print_error("Expected = got", lex);
 
-	expression();
+	expression(data);
 }
 
-void TDiagram::expression() {
+void TDiagram::expression(TData* data) {
 	type_lex lex;
 	int type;
 
-	comparison();
+	comparison(data);
 	type = look_forward(1);
 	while (type == TEq || type == TNe) {
 		type = scan(lex);
-		comparison();
+		comparison(data);
 		type = look_forward(1);
 	}
 }
@@ -356,7 +360,8 @@ void TDiagram::operator_() {
 		type = look_forward(1);
 		if (type == TEval) {
 			type = scan(lex);
-			expression();
+			TData* data = &root->get_current_node()->data;
+			expression(data);
 		}
 		type = scan(lex);
 		if (type != TSemicolon)
@@ -403,7 +408,8 @@ void TDiagram::condition() {
 	if (type != TLeftBracket)
 		scaner->print_error("Expected ( got", lex);
 
-	expression();
+	TData* data = &root->get_current_node()->data;
+	expression(data);
 
 	type = scan(lex);
 	if (type != TRightBracket)
@@ -419,61 +425,61 @@ void TDiagram::condition() {
 	}
 }
 
-void TDiagram::comparison() {
+void TDiagram::comparison(TData* data) {
 	type_lex lex;
 	int type;
-	addendum();
+	addendum(data);
 	type = look_forward(1);
 	while (type == TLt || type == TLe || type == TGt || type == TGe) {
 		type = scan(lex);
-		addendum();
+		addendum(data);
 		type = look_forward(1);
 	}
 }
 
-void TDiagram::addendum() {
+void TDiagram::addendum(TData* data) {
 	type_lex lex;
 	int type;
 
-	multiplier();
+	multiplier(data);
 
 	type = look_forward(1);
 	while (type == TAdd || type == TSub) {
 		type = scan(lex);
-		multiplier();
+		multiplier(data);
 		type = look_forward(1);
 	}
 }
 
-void TDiagram::multiplier() {
+void TDiagram::multiplier(TData* data) {
 	type_lex lex;
 	int type;
 
-	unary_operation();
+	unary_operation(data);
 
 	type = look_forward(1);
 	while (type == TMul || type == TDiv || type == TMod) {
 		type = scan(lex);
-		unary_operation();
+		unary_operation(data);
 		type = look_forward(1);
 	}
 }
 
-void TDiagram::unary_operation() {
+void TDiagram::unary_operation(TData* data) {
 	type_lex lex;
 	int type = look_forward(1);
 
 	if (type == TAdd || type == TSub)
 	{
 		type = scan(lex);
-		elementary_expression();
+		elementary_expression(data);
 	}
 	else
-		elementary_expression();
+		elementary_expression(data);
 }
 
 
-void TDiagram::elementary_expression() {
+void TDiagram::elementary_expression(TData* data) {
 	type_lex lex;
 	int type = look_forward(1);
 	if (type == TIdent) {
@@ -485,17 +491,19 @@ void TDiagram::elementary_expression() {
 			return;
 		}
 		Tree* t = root->semantic_get_type(lex, OBJECT_VARIABLE);
-		if (t->get_node()->init != 1)
+		if (t->get_current_node()->init != 1)
 			scaner->print_error("Variable not initialized", lex);
 		return;
 	}
 	else if (type == TConst10 || type == TConst16) {
 		type = scan(lex);
+		data->type = TYPE_INT;
+		data->value.data_as_int = strtol(lex, NULL, 0);
 		return;
 	}
 	else if (type == TLeftBracket) {
 		type = scan(lex);
-		expression();
+		expression(data);
 		type = scan(lex);
 		if (type != TRightBracket)
 			scaner->print_error("Expected ) got ", lex);

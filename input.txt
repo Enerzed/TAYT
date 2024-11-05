@@ -1,9 +1,2 @@
 void func() {
-	int a = 3;
-	{
-		int a;
-		int b;
-		int c = a + b;
-	}
-	int c = a + b;
 }

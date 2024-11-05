@@ -75,8 +75,12 @@ Tree* Tree::get_current() {
 	return(current);
 }
 
-void Tree::semantic_set_type(Tree* tree, type_data type) {
-	tree->node->type = type;
+void Tree::set_node(Node* node) {
+	this->node = node;
+}
+
+Node* Tree::get_node() {
+	return(node);
 }
 
 Tree* Tree::semantic_get_type(type_lex lex, type_object object) {
@@ -107,12 +111,12 @@ Tree* Tree::semantic_get_object(type_lex lex) {
 	return(t);
 }
 
-void Tree::set_node(Node* node) {
-	this->node = node;
+void Tree::set_current_node(Node* node) {
+	current->node = node;
 }
 
-Node* Tree::get_node() {
-	return node;
+Node* Tree::get_current_node() {
+	return current->node;
 }
 
 void Tree::semantic_set_init(Tree* tree, int init) {
@@ -151,8 +155,16 @@ Tree* Tree::semantic_include(type_lex lex, type_object object, type_data type) {
 		memcpy(n.lex, lex, strlen(lex) + 1);
 		n.array_size = -1;
 		n.init = -1;
-		n.type = type;
 		n.object = object;
+		n.data.type = type;
+		switch (type) {
+			case TYPE_INT: n.data.value.data_as_int = 0; break;
+			case TYPE_SHORT: n.data.value.data_as_short = 0; break;
+			case TYPE_LONG: n.data.value.data_as_long = 0; break;
+			case TYPE__INT64: n.data.value.data_as__int64 = 0; break;
+			case TYPE_CHAR: n.data.value.data_as_char = 0; break;
+			case TYPE_VOID: scaner->print_error("Type void is not allowed", lex); break;
+		}
 		current->set_left(&n);
 		current = current->left;
 		return current;
@@ -161,8 +173,16 @@ Tree* Tree::semantic_include(type_lex lex, type_object object, type_data type) {
 		memcpy(n.lex, lex, strlen(lex) + 1);
 		n.array_size = -1;
 		n.init = -1;
-		n.type = type;
 		n.object = object;
+		n.data.type = type;
+		switch (type) {
+			case TYPE_INT: n.data.value.array_as_int = 0; break;
+			case TYPE_SHORT: n.data.value.array_as_short = 0; break;
+			case TYPE_LONG: n.data.value.array_as_long = 0; break;
+			case TYPE__INT64: n.data.value.array_as__int64 = 0; break;
+			case TYPE_CHAR: n.data.value.array_as_char = 0; break;
+			case TYPE_VOID: scaner->print_error("Type void is not allowed", lex); break;
+		}
 		current->set_left(&n);
 		current = current->left;
 		return current;
@@ -171,7 +191,7 @@ Tree* Tree::semantic_include(type_lex lex, type_object object, type_data type) {
 		memcpy(n.lex, lex, strlen(lex) + 1);
 		n.array_size = -1;
 		n.init = -1;
-		n.type = type;
+		n.data.type = type;
 		n.object = object;
 		current->set_left(&n);
 		current = current->left;
@@ -179,7 +199,7 @@ Tree* Tree::semantic_include(type_lex lex, type_object object, type_data type) {
 		memcpy(&n.lex, &"", 2);
 		n.array_size = -1;
 		n.init = -1;
-		n.type = type;
+		n.data.type = type;
 		n.object = object;
 		current->set_right(&n);
 		current = current->right;
@@ -189,7 +209,7 @@ Tree* Tree::semantic_include(type_lex lex, type_object object, type_data type) {
 		memcpy(n.lex, lex, strlen(lex) + 1);
 		n.array_size = -1;
 		n.init = -1;
-		n.type = type;
+		n.data.type = type;
 		n.object = object;
 		current->set_left(&n);
 		current = current->left;
@@ -197,7 +217,7 @@ Tree* Tree::semantic_include(type_lex lex, type_object object, type_data type) {
 		memcpy(&n.lex, &"", 2);
 		n.array_size = -1;
 		n.init = -1;
-		n.type = type;
+		n.data.type = type;
 		n.object = object;
 		current->set_right(&n);
 		current = current->right;
