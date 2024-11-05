@@ -491,7 +491,7 @@ void TDiagram::elementary_expression(TData* data) {
 			return;
 		}
 		Tree* t = root->semantic_get_type(lex, OBJECT_VARIABLE);
-		if (t->get_current_node()->init != 1)
+		if (t->get_node()->init != 1)
 			scaner->print_error("Variable not initialized", lex);
 		return;
 	}

@@ -116,6 +116,8 @@ void Tree::set_current_node(Node* node) {
 }
 
 Node* Tree::get_current_node() {
+	if (current == NULL)
+		return NULL;
 	return current->node;
 }
 
