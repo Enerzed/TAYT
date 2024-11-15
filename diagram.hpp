@@ -19,7 +19,7 @@ private:
 	void variable();					// Переменная
 	void array();						// Массив
 	void array_expression();			// Выражение одномерного массива
-	void array_ident();					// Идентификатор массива
+	void array_ident(TData*);			// Идентификатор массива
 	void assignment();					// Присваивание
 	void expression(TData*);			// Выражение
 	void composite_operator();			// Составной оператор
@@ -34,6 +34,8 @@ private:
 	void elementary_expression(TData*);	// Элементарное выражение
 	int look_forward(int pointer);
 	int scan(type_lex lex);
+	void print_variable(Tree*);
+	void print_array(Tree*, int);
 public:
 	Tree* root;
 	TDiagram(TScaner* scaner) {

@@ -191,7 +191,56 @@ void TDiagram::array() {
 		scaner->print_error("Expected [ got", lex);
 	}
 
-	expression(data); 
+	TData* expression_data = new TData();
+	expression(expression_data);
+
+	switch (data->type) {
+	case TYPE_INT:
+		switch (expression_data->type) {
+		case TYPE_INT: if (expression_data->value.data_as_int > 0) data->value.array_as_int = new int(expression_data->value.data_as_int); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_SHORT: if (expression_data->value.data_as_short > 0) data->value.array_as_int = new int(expression_data->value.data_as_short); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_LONG: if (expression_data->value.data_as_long > 0) data->value.array_as_int = new int(expression_data->value.data_as_long); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE__INT64: if (expression_data->value.data_as__int64 > 0) data->value.array_as_int = new int(expression_data->value.data_as__int64); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_CHAR: if (expression_data->value.data_as_char > 0) data->value.array_as_int = new int(expression_data->value.data_as_char); else scaner->print_error("Array size must be greater than 0", lex); break;
+		}
+		break;
+	case TYPE_SHORT:
+		switch (expression_data->type) {
+		case TYPE_INT: if (expression_data->value.data_as_int > 0) data->value.array_as_short = new short(expression_data->value.data_as_int); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_SHORT: if (expression_data->value.data_as_short > 0) data->value.array_as_short = new short(expression_data->value.data_as_short); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_LONG: if (expression_data->value.data_as_long > 0) data->value.array_as_short = new short(expression_data->value.data_as_long); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE__INT64: if (expression_data->value.data_as__int64 > 0) data->value.array_as_short = new short(expression_data->value.data_as__int64); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_CHAR: if (expression_data->value.data_as_char > 0) data->value.array_as_short = new short(expression_data->value.data_as_char); else scaner->print_error("Array size must be greater than 0", lex); break;
+		}
+		break;
+	case TYPE_LONG:
+		switch (expression_data->type) {
+		case TYPE_INT: if (expression_data->value.data_as_int > 0) data->value.array_as_long = new long(expression_data->value.data_as_int); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_SHORT: if (expression_data->value.data_as_short > 0) data->value.array_as_long = new long(expression_data->value.data_as_short); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_LONG: if (expression_data->value.data_as_long > 0) data->value.array_as_long = new long(expression_data->value.data_as_long); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE__INT64: if (expression_data->value.data_as__int64 > 0) data->value.array_as_long = new long(expression_data->value.data_as__int64); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_CHAR: if (expression_data->value.data_as_char > 0) data->value.array_as_long = new long(expression_data->value.data_as_char); else scaner->print_error("Array size must be greater than 0", lex); break;
+		}
+		break;
+	case TYPE__INT64:
+		switch (expression_data->type) {
+		case TYPE_INT: if (expression_data->value.data_as_int > 0) data->value.array_as__int64 = new __int64(expression_data->value.data_as_int); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_SHORT: if (expression_data->value.data_as_short > 0) data->value.array_as__int64 = new __int64(expression_data->value.data_as_short); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_LONG: if (expression_data->value.data_as_long > 0) data->value.array_as__int64 = new __int64(expression_data->value.data_as_long); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE__INT64: if (expression_data->value.data_as__int64 > 0) data->value.array_as__int64 = new __int64(expression_data->value.data_as__int64); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_CHAR: if (expression_data->value.data_as_char > 0) data->value.array_as__int64 = new __int64(expression_data->value.data_as_char); else scaner->print_error("Array size must be greater than 0", lex); break;
+		}
+		break;
+	case TYPE_CHAR:
+		switch (expression_data->type) {
+		case TYPE_INT: if (expression_data->value.data_as_int > 0) data->value.array_as_char = new char(expression_data->value.data_as_int); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_SHORT: if (expression_data->value.data_as_short > 0) data->value.array_as_char = new char(expression_data->value.data_as_short); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_LONG: if (expression_data->value.data_as_long > 0) data->value.array_as_char = new char(expression_data->value.data_as_long); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE__INT64: if (expression_data->value.data_as__int64 > 0) data->value.array_as_char = new char(expression_data->value.data_as__int64); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_CHAR: if (expression_data->value.data_as_char > 0) data->value.array_as_char = new char(expression_data->value.data_as_char); else scaner->print_error("Array size must be greater than 0", lex); break;
+		}
+		break;
+	}
 
 	type = scan(lex);
 	if (type != TRightSquareBracket) {
@@ -230,7 +279,7 @@ void TDiagram::array_expression() {
 
 }
 
-void TDiagram::array_ident() {
+void TDiagram::array_ident(TData* data) {
 
 	type_lex lex;
 	int type;
@@ -240,8 +289,9 @@ void TDiagram::array_ident() {
 		scaner->print_error("Expected [ got", lex);
 	}
 
-	TData* data = &root->get_current_node()->data;
-	expression(data);
+	TData* expression_data = new TData;
+	expression(expression_data);
+	data = expression_data;
 
 	type = scan(lex);
 	if (type != TRightSquareBracket) {
@@ -262,29 +312,68 @@ void TDiagram::assignment() {
 	TData* data = &root->get_current_node()->data;
 	root->semantic_set_init(t, 1);
 
-	type = look_forward(1);
-	if (type == TLeftSquareBracket)
-		array_ident();
+	//type = look_forward(1);
+	//if (type == TLeftSquareBracket)
+	//	array_ident();
 
 	type = scan(lex);
 	if (type != TEval)
 		scaner->print_error("Expected = got", lex);
 
-	expression(data);
-}
+	TData* expression_data = new TData;
+	expression(expression_data);
 
-void TDiagram::expression(TData* data) {
-	type_lex lex;
-	int type;
-
-	comparison(data);
-	type = look_forward(1);
-	while (type == TEq || type == TNe) {
-		type = scan(lex);
-		comparison(data);
-		type = look_forward(1);
+	switch (data->type) {
+	case TYPE_INT:
+		switch (expression_data->type) {
+		case TYPE_INT: data->value.data_as_int = expression_data->value.data_as_int; break;
+		case TYPE_SHORT: data->value.data_as_int = expression_data->value.data_as_short; break;
+		case TYPE_LONG: data->value.data_as_int = expression_data->value.data_as_long; break;
+		case TYPE__INT64: data->value.data_as_int = expression_data->value.data_as__int64; break;
+		case TYPE_CHAR: data->value.data_as_int = expression_data->value.data_as_char; break;
+		}
+		break;
+	case TYPE_SHORT:
+		switch (expression_data->type) {
+		case TYPE_INT: data->value.data_as_short = expression_data->value.data_as_int; break;
+		case TYPE_SHORT: data->value.data_as_short = expression_data->value.data_as_short; break;
+		case TYPE_LONG: data->value.data_as_short = expression_data->value.data_as_long; break;
+		case TYPE__INT64: data->value.data_as_short = expression_data->value.data_as__int64; break;
+		case TYPE_CHAR: data->value.data_as_short = expression_data->value.data_as_char; break;
+		}
+		break;
+	case TYPE_LONG:
+		switch (expression_data->type) {
+		case TYPE_INT: data->value.data_as_long = expression_data->value.data_as_int; break;
+		case TYPE_SHORT: data->value.data_as_long = expression_data->value.data_as_short; break;
+		case TYPE_LONG: data->value.data_as_long = expression_data->value.data_as_long; break;
+		case TYPE__INT64: data->value.data_as_long = expression_data->value.data_as__int64; break;
+		case TYPE_CHAR: data->value.data_as_long = expression_data->value.data_as_char; break;
+		}
+		break;
+	case TYPE__INT64:
+		switch (expression_data->type) {
+		case TYPE_INT: data->value.data_as__int64 = expression_data->value.data_as_int; break;
+		case TYPE_SHORT: data->value.data_as__int64 = expression_data->value.data_as_short; break;
+		case TYPE_LONG: data->value.data_as__int64 = expression_data->value.data_as_long; break;
+		case TYPE__INT64: data->value.data_as__int64 = expression_data->value.data_as__int64; break;
+		case TYPE_CHAR: data->value.data_as__int64 = expression_data->value.data_as_char; break;
+		}
+		break;
+	case TYPE_CHAR:
+		switch (expression_data->type) {
+		case TYPE_INT: data->value.data_as_char = expression_data->value.data_as_int; break;
+		case TYPE_SHORT: data->value.data_as_char = expression_data->value.data_as_short; break;
+		case TYPE_LONG: data->value.data_as_char = expression_data->value.data_as_long; break;
+		case TYPE__INT64: data->value.data_as_char = expression_data->value.data_as__int64; break;
+		case TYPE_CHAR: data->value.data_as_char = expression_data->value.data_as_char; break;
+		}
+		break;
 	}
+	print_variable(t);
 }
+
+
 
 void TDiagram::composite_operator() {
 	type_lex lex;
@@ -356,14 +445,263 @@ void TDiagram::operator_() {
 		type = scan(lex);
 
 		Tree* t = root->semantic_get_type(lex, OBJECT_ARRAY);
+		TData* data = &root->get_current_node()->data;
+		TData* expression_data = new TData;
+		TData* assignment_data = new TData;
+		array_ident(expression_data);
 
-		array_ident();
-		type = look_forward(1);
-		if (type == TEval) {
-			type = scan(lex);
-			TData* data = &root->get_current_node()->data;
-			expression(data);
+		type = scan(lex);
+		if (type != TEval)
+			scaner->print_error("Expected = got", lex);
+
+		expression(assignment_data);
+
+		switch (data->type) {
+		case TYPE_INT:
+			switch (assignment_data->type) {
+			case TYPE_INT:
+				switch (expression_data->type) {
+				case TYPE_INT: data->value.array_as_int[expression_data->value.data_as_int] = assignment_data->value.data_as_int; break;
+				case TYPE_SHORT: data->value.array_as_int[expression_data->value.data_as_short] = assignment_data->value.data_as_int; break;
+				case TYPE_LONG:	data->value.array_as_int[expression_data->value.data_as_long] = assignment_data->value.data_as_int; break;
+				case TYPE__INT64: data->value.array_as_int[expression_data->value.data_as__int64] = assignment_data->value.data_as_int; break;
+				case TYPE_CHAR: data->value.array_as_int[expression_data->value.data_as_char] = assignment_data->value.data_as_int; break;
+				}
+				break;
+			case TYPE_SHORT:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_int] = assignment_data->value.data_as_short; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_short] = assignment_data->value.data_as_short; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_int[expression_data->value.data_as_long] = assignment_data->value.data_as_short; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_int[expression_data->value.data_as__int64] = assignment_data->value.data_as_short; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_int[expression_data->value.data_as_char] = assignment_data->value.data_as_short; break;
+				}
+				break;
+			case TYPE_LONG:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_int] = assignment_data->value.data_as_long; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_short] = assignment_data->value.data_as_long; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_int[expression_data->value.data_as_long] = assignment_data->value.data_as_long; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_int[expression_data->value.data_as__int64] = assignment_data->value.data_as_long; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_int[expression_data->value.data_as_char] = assignment_data->value.data_as_long; break;
+				}
+				break;
+			case TYPE__INT64:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_int] = assignment_data->value.data_as__int64; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_short] = assignment_data->value.data_as__int64; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_int[expression_data->value.data_as_long] = assignment_data->value.data_as__int64; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_int[expression_data->value.data_as__int64] = assignment_data->value.data_as__int64; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_int[expression_data->value.data_as_char] = assignment_data->value.data_as__int64; break;
+				}
+				break;
+			case TYPE_CHAR:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_int] = assignment_data->value.data_as_char; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_short] = assignment_data->value.data_as_char; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_int[expression_data->value.data_as_long] = assignment_data->value.data_as_char; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_int[expression_data->value.data_as__int64] = assignment_data->value.data_as_char; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_int[expression_data->value.data_as_char] = assignment_data->value.data_as_char; break;
+				}
+				break;
+			}
+			break;
+		case TYPE_SHORT:
+			switch (assignment_data->type) {
+			case TYPE_INT:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_int] = assignment_data->value.data_as_int; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_short] = assignment_data->value.data_as_int; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_short[expression_data->value.data_as_long] = assignment_data->value.data_as_int; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_short[expression_data->value.data_as__int64] = assignment_data->value.data_as_int; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_short[expression_data->value.data_as_char] = assignment_data->value.data_as_int; break;
+				}
+				break;
+			case TYPE_LONG:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_int] = assignment_data->value.data_as_long; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_short] = assignment_data->value.data_as_long; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_short[expression_data->value.data_as_long] = assignment_data->value.data_as_long; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_short[expression_data->value.data_as__int64] = assignment_data->value.data_as_long; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_short[expression_data->value.data_as_char] = assignment_data->value.data_as_long; break;
+				}
+				break;
+			case TYPE__INT64:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_int] = assignment_data->value.data_as__int64; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_short] = assignment_data->value.data_as__int64; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_short[expression_data->value.data_as_long] = assignment_data->value.data_as__int64; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_short[expression_data->value.data_as__int64] = assignment_data->value.data_as__int64; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_short[expression_data->value.data_as_char] = assignment_data->value.data_as__int64; break;
+				}
+				break;
+			case TYPE_CHAR:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_int] = assignment_data->value.data_as_char; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_short] = assignment_data->value.data_as_char; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_short[expression_data->value.data_as_long] = assignment_data->value.data_as_char; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_short[expression_data->value.data_as__int64] = assignment_data->value.data_as_char; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_short[expression_data->value.data_as_char] = assignment_data->value.data_as_char; break;
+				}
+				break;
+			}
+			break;
+		case TYPE_LONG:
+			switch (assignment_data->type) {
+			case TYPE_INT:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_int] = assignment_data->value.data_as_int; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_short] = assignment_data->value.data_as_int; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_long[expression_data->value.data_as_long] = assignment_data->value.data_as_int; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_long[expression_data->value.data_as__int64] = assignment_data->value.data_as_int; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_long[expression_data->value.data_as_char] = assignment_data->value.data_as_int; break;
+				}
+				break;
+			case TYPE_SHORT:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_int] = assignment_data->value.data_as_short; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_short] = assignment_data->value.data_as_short; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_long[expression_data->value.data_as_long] = assignment_data->value.data_as_short; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_long[expression_data->value.data_as__int64] = assignment_data->value.data_as_short; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_long[expression_data->value.data_as_char] = assignment_data->value.data_as_short; break;
+				}
+				break;
+			case TYPE_LONG:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_int] = assignment_data->value.data_as_long; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_short] = assignment_data->value.data_as_long; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_long[expression_data->value.data_as_long] = assignment_data->value.data_as_long; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_long[expression_data->value.data_as__int64] = assignment_data->value.data_as_long; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_long[expression_data->value.data_as_char] = assignment_data->value.data_as_long; break;
+				}
+				break;
+			case TYPE__INT64:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_int] = assignment_data->value.data_as__int64; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_short] = assignment_data->value.data_as__int64; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_long[expression_data->value.data_as_long] = assignment_data->value.data_as__int64; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_long[expression_data->value.data_as__int64] = assignment_data->value.data_as__int64; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_long[expression_data->value.data_as_char] = assignment_data->value.data_as__int64; break;
+				}
+				break;
+			case TYPE_CHAR:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_int] = assignment_data->value.data_as_char; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_short] = assignment_data->value.data_as_char; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_long[expression_data->value.data_as_long] = assignment_data->value.data_as_char; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_long[expression_data->value.data_as__int64] = assignment_data->value.data_as_char; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_long[expression_data->value.data_as_char] = assignment_data->value.data_as_char; break;
+				}
+				break;
+			}
+		case TYPE__INT64:
+			switch (assignment_data->type) {
+			case TYPE_INT:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_int] = assignment_data->value.data_as_int; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_short] = assignment_data->value.data_as_int; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_long] = assignment_data->value.data_as_int; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as__int64[expression_data->value.data_as__int64] = assignment_data->value.data_as_int; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_char] = assignment_data->value.data_as_int; break;
+				}
+				break;
+			case TYPE_SHORT:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_int] = assignment_data->value.data_as_short; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_short] = assignment_data->value.data_as_short; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_long] = assignment_data->value.data_as_short; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as__int64[expression_data->value.data_as__int64] = assignment_data->value.data_as_short; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_char] = assignment_data->value.data_as_short; break;
+				}
+				break;
+			case TYPE_LONG:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_int] = assignment_data->value.data_as_long; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_short] = assignment_data->value.data_as_long; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_long] = assignment_data->value.data_as_long; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as__int64[expression_data->value.data_as__int64] = assignment_data->value.data_as_long; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_char] = assignment_data->value.data_as_long; break;
+				}
+				break;
+			case TYPE__INT64:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_int] = assignment_data->value.data_as__int64; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_short] = assignment_data->value.data_as__int64; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_long] = assignment_data->value.data_as__int64; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as__int64[expression_data->value.data_as__int64] = assignment_data->value.data_as__int64; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_char] = assignment_data->value.data_as__int64; break;
+				}
+				break;
+			case TYPE_CHAR:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_int] = assignment_data->value.data_as_char; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_short] = assignment_data->value.data_as_char; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_long] = assignment_data->value.data_as_char; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as__int64[expression_data->value.data_as__int64] = assignment_data->value.data_as_char; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_char] = assignment_data->value.data_as_char; break;
+				}
+				break;
+			}
+		case TYPE_CHAR:
+			switch (assignment_data->type) {
+			case TYPE_INT:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_int] = assignment_data->value.data_as_int; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_short] = assignment_data->value.data_as_int; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_char[expression_data->value.data_as_long] = assignment_data->value.data_as_int; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_char[expression_data->value.data_as__int64] = assignment_data->value.data_as_int; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_char[expression_data->value.data_as_char] = assignment_data->value.data_as_int; break;
+				}
+				break;
+			case TYPE_SHORT:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_int] = assignment_data->value.data_as_short; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_short] = assignment_data->value.data_as_short; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_char[expression_data->value.data_as_long] = assignment_data->value.data_as_short; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_char[expression_data->value.data_as__int64] = assignment_data->value.data_as_short; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_char[expression_data->value.data_as_char] = assignment_data->value.data_as_short; break;
+				}
+				break;
+			case TYPE_LONG:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_int] = assignment_data->value.data_as_long; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_short] = assignment_data->value.data_as_long; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_char[expression_data->value.data_as_long] = assignment_data->value.data_as_long; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_char[expression_data->value.data_as__int64] = assignment_data->value.data_as_long; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_char[expression_data->value.data_as_char] = assignment_data->value.data_as_long; break;
+				}
+				break;
+			case TYPE__INT64:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_int] = assignment_data->value.data_as__int64; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_short] = assignment_data->value.data_as__int64; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_char[expression_data->value.data_as_long] = assignment_data->value.data_as__int64; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_char[expression_data->value.data_as__int64] = assignment_data->value.data_as__int64; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_char[expression_data->value.data_as_char] = assignment_data->value.data_as__int64; break;
+				}
+				break;
+			case TYPE_CHAR:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_int] = assignment_data->value.data_as_char; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_short] = assignment_data->value.data_as_char; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_char[expression_data->value.data_as_long] = assignment_data->value.data_as_char; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_char[expression_data->value.data_as__int64] = assignment_data->value.data_as_char; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_char[expression_data->value.data_as_char] = assignment_data->value.data_as_char; break;
+				}
+				break;
+			}
 		}
+
+		int index = 0;
+		switch (expression_data->type) {
+			case TYPE_INT: index = expression_data->value.data_as_int; break;
+			case TYPE_SHORT: index = expression_data->value.data_as_short; break;
+			case TYPE_LONG: index = expression_data->value.data_as_long; break;
+			case TYPE__INT64: index = expression_data->value.data_as__int64; break;
+			case TYPE_CHAR: index = expression_data->value.data_as_char; break;
+		}
+		print_array(t, index);
+
 		type = scan(lex);
 		if (type != TSemicolon)
 			scaner->print_error("Expected ; got", lex);
@@ -426,15 +764,466 @@ void TDiagram::condition() {
 	}
 }
 
+void TDiagram::expression(TData* data) {
+	type_lex lex;
+	int type;
+
+	comparison(data);
+	type = look_forward(1);
+	while (type == TEq || type == TNe) {
+		int operation = scan(lex);
+		TData* expression_data = new TData;
+		comparison(expression_data);
+		type = look_forward(1);
+
+		switch (data->type) {
+		case TYPE_INT:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TEq)
+					data->value.data_as_int == expression_data->value.data_as_int ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_int != expression_data->value.data_as_int ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_SHORT:
+				if (operation == TEq)
+					data->value.data_as_int == expression_data->value.data_as_short ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_int != expression_data->value.data_as_short ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_LONG:
+				if (operation == TEq)
+					data->value.data_as_int == expression_data->value.data_as_long ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_int != expression_data->value.data_as_long ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE__INT64:
+				if (operation == TEq)
+					data->value.data_as_int == expression_data->value.data_as__int64 ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_int != expression_data->value.data_as__int64 ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_CHAR:
+				if (operation == TEq)
+					data->value.data_as_int == expression_data->value.data_as_char ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_int != expression_data->value.data_as_char ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			}
+			break;
+		case TYPE_SHORT:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TEq)
+					data->value.data_as_short == expression_data->value.data_as_int ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_short != expression_data->value.data_as_int ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_SHORT:
+				if (operation == TEq)
+					data->value.data_as_short == expression_data->value.data_as_short ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_short != expression_data->value.data_as_short ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_LONG:
+				if (operation == TEq)
+					data->value.data_as_short == expression_data->value.data_as_long ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_short != expression_data->value.data_as_long ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE__INT64:
+				if (operation == TEq)
+					data->value.data_as_short == expression_data->value.data_as__int64 ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_short != expression_data->value.data_as__int64 ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_CHAR:
+				if (operation == TEq)
+					data->value.data_as_short == expression_data->value.data_as_char ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_short != expression_data->value.data_as_char ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			}
+			break;
+		case TYPE_LONG:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TEq)
+					data->value.data_as_long == expression_data->value.data_as_int ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_long != expression_data->value.data_as_int ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_SHORT:
+				if (operation == TEq)
+					data->value.data_as_long == expression_data->value.data_as_short ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_long != expression_data->value.data_as_short ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_LONG:
+				if (operation == TEq)
+					data->value.data_as_long == expression_data->value.data_as_long ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_long != expression_data->value.data_as_long ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE__INT64:
+				if (operation == TEq)
+					data->value.data_as_long == expression_data->value.data_as__int64 ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_long != expression_data->value.data_as__int64 ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_CHAR:
+				if (operation == TEq)
+					data->value.data_as_long == expression_data->value.data_as_char ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_long != expression_data->value.data_as_char ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			}
+			break;
+		case TYPE__INT64:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TEq)
+					data->value.data_as__int64 == expression_data->value.data_as_int ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as__int64 != expression_data->value.data_as_int ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_SHORT:
+				if (operation == TEq)
+					data->value.data_as__int64 == expression_data->value.data_as_short ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as__int64 != expression_data->value.data_as_short ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_LONG:
+				if (operation == TEq)
+					data->value.data_as__int64 == expression_data->value.data_as_long ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as__int64 != expression_data->value.data_as_long ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE__INT64:
+				if (operation == TEq)
+					data->value.data_as__int64 == expression_data->value.data_as__int64 ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as__int64 != expression_data->value.data_as__int64 ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_CHAR:
+				if (operation == TEq)
+					data->value.data_as__int64 == expression_data->value.data_as_char ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as__int64 != expression_data->value.data_as_char ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			}
+			break;
+		case TYPE_CHAR:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TEq)
+					data->value.data_as_char == expression_data->value.data_as_int ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_char != expression_data->value.data_as_int ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_SHORT:
+				if (operation == TEq)
+					data->value.data_as_char == expression_data->value.data_as_short ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_char != expression_data->value.data_as_short ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_LONG:
+				if (operation == TEq)
+					data->value.data_as_char == expression_data->value.data_as_long ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_char != expression_data->value.data_as_long ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE__INT64:
+				if (operation == TEq)
+					data->value.data_as_char == expression_data->value.data_as__int64 ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_char != expression_data->value.data_as__int64 ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_CHAR:
+				if (operation == TEq)
+					data->value.data_as_char == expression_data->value.data_as_char ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TNe)
+					data->value.data_as_char != expression_data->value.data_as_char ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			}
+			break;
+		}
+	}
+}
+
 void TDiagram::comparison(TData* data) {
 	type_lex lex;
 	int type;
 	addendum(data);
 	type = look_forward(1);
 	while (type == TLt || type == TLe || type == TGt || type == TGe) {
-		type = scan(lex);
-		addendum(data);
+		int operation = scan(lex);
+		TData* expression_data = new TData;
+		addendum(expression_data);
 		type = look_forward(1);
+
+		switch(data->type) {
+		case TYPE_INT:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TLt)
+					data->value.data_as_int < expression_data->value.data_as_int ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TLe)
+					data->value.data_as_int <= expression_data->value.data_as_int ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TGt)
+					data->value.data_as_int > expression_data->value.data_as_int ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TGe)
+					data->value.data_as_int >= expression_data->value.data_as_int ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_SHORT:
+				if (operation == TLt)
+					data->value.data_as_int < expression_data->value.data_as_short ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TLe)
+					data->value.data_as_int <= expression_data->value.data_as_short ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TGt)
+					data->value.data_as_int > expression_data->value.data_as_short ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TGe)
+					data->value.data_as_int >= expression_data->value.data_as_short ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_LONG:
+				if (operation == TLt)
+					data->value.data_as_int < expression_data->value.data_as_long ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TLe)
+					data->value.data_as_int <= expression_data->value.data_as_long ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TGt)
+					data->value.data_as_int > expression_data->value.data_as_long ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TGe)
+					data->value.data_as_int >= expression_data->value.data_as_long ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE__INT64:
+				if (operation == TLt)
+					data->value.data_as_int < expression_data->value.data_as__int64 ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TLe)
+					data->value.data_as_int <= expression_data->value.data_as__int64 ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TGt)
+					data->value.data_as_int > expression_data->value.data_as__int64 ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TGe)
+					data->value.data_as_int >= expression_data->value.data_as__int64 ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			case TYPE_CHAR:
+				if (operation == TLt)
+					data->value.data_as_int < expression_data->value.data_as_char ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TLe)
+					data->value.data_as_int <= expression_data->value.data_as_char ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TGt)
+					data->value.data_as_int > expression_data->value.data_as_char ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				else if (operation == TGe)
+					data->value.data_as_int >= expression_data->value.data_as_char ? data->value.data_as_int = 1 : data->value.data_as_int = 0;
+				break;
+			}
+			break;
+		case TYPE_SHORT:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TLt)
+					data->value.data_as_short < expression_data->value.data_as_int ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				else if (operation == TLe)
+					data->value.data_as_short <= expression_data->value.data_as_int ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				else if (operation == TGt)
+					data->value.data_as_short > expression_data->value.data_as_int ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				else if (operation == TGe)
+					data->value.data_as_short >= expression_data->value.data_as_int ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				break;
+			case TYPE_SHORT:
+				if (operation == TLt)
+					data->value.data_as_short < expression_data->value.data_as_short ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				else if (operation == TLe)
+					data->value.data_as_short <= expression_data->value.data_as_short ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				else if (operation == TGt)
+					data->value.data_as_short > expression_data->value.data_as_short ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				else if (operation == TGe)
+					data->value.data_as_short >= expression_data->value.data_as_short ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				break;
+			case TYPE_LONG:
+				if (operation == TLt)
+					data->value.data_as_short < expression_data->value.data_as_long ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				else if (operation == TLe)
+					data->value.data_as_short <= expression_data->value.data_as_long ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				else if (operation == TGt)
+					data->value.data_as_short > expression_data->value.data_as_long ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				else if (operation == TGe)
+					data->value.data_as_short >= expression_data->value.data_as_long ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				break;
+			case TYPE__INT64:
+				if (operation == TLt)
+					data->value.data_as_short < expression_data->value.data_as__int64 ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				else if (operation == TLe)
+					data->value.data_as_short <= expression_data->value.data_as__int64 ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				else if (operation == TGt)
+					data->value.data_as_short > expression_data->value.data_as__int64 ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				else if (operation == TGe)
+					data->value.data_as_short >= expression_data->value.data_as__int64 ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				break;
+			case TYPE_CHAR:
+				if (operation == TLt)
+					data->value.data_as_short < expression_data->value.data_as_char ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				else if (operation == TLe)
+					data->value.data_as_short <= expression_data->value.data_as_char ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				else if (operation == TGt)
+					data->value.data_as_short > expression_data->value.data_as_char ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				else if (operation == TGe)
+					data->value.data_as_short >= expression_data->value.data_as_char ? data->value.data_as_short = 1 : data->value.data_as_short = 0;
+				break;
+			}
+			break;
+		case TYPE_LONG:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TLt)
+					data->value.data_as_long < expression_data->value.data_as_int ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				else if (operation == TLe)
+					data->value.data_as_long <= expression_data->value.data_as_int ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				else if (operation == TGt)
+					data->value.data_as_long > expression_data->value.data_as_int ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				else if (operation == TGe)
+					data->value.data_as_long >= expression_data->value.data_as_int ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				break;
+			case TYPE_SHORT:
+				if (operation == TLt)
+					data->value.data_as_long < expression_data->value.data_as_short ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				else if (operation == TLe)
+					data->value.data_as_long <= expression_data->value.data_as_short ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				else if (operation == TGt)
+					data->value.data_as_long > expression_data->value.data_as_short ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				else if (operation == TGe)
+					data->value.data_as_long >= expression_data->value.data_as_short ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				break;
+			case TYPE_LONG:
+				if (operation == TLt)
+					data->value.data_as_long < expression_data->value.data_as_long ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				else if (operation == TLe)
+					data->value.data_as_long <= expression_data->value.data_as_long ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				else if (operation == TGt)
+					data->value.data_as_long > expression_data->value.data_as_long ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				else if (operation == TGe)
+					data->value.data_as_long >= expression_data->value.data_as_long ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				break;
+			case TYPE__INT64:
+				if (operation == TLt)
+					data->value.data_as_long < expression_data->value.data_as__int64 ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				else if (operation == TLe)
+					data->value.data_as_long <= expression_data->value.data_as__int64 ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				else if (operation == TGt)
+					data->value.data_as_long > expression_data->value.data_as__int64 ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				else if (operation == TGe)
+					data->value.data_as_long >= expression_data->value.data_as__int64 ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				break;
+			case TYPE_CHAR:
+				if (operation == TLt)
+					data->value.data_as_long < expression_data->value.data_as_char ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				else if (operation == TLe)
+					data->value.data_as_long <= expression_data->value.data_as_char ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				else if (operation == TGt)
+					data->value.data_as_long > expression_data->value.data_as_char ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				else if (operation == TGe)
+					data->value.data_as_long >= expression_data->value.data_as_char ? data->value.data_as_long = 1 : data->value.data_as_long = 0;
+				break;
+			}
+			break;
+		case TYPE__INT64:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TLt)
+					data->value.data_as__int64 < expression_data->value.data_as_int ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				else if (operation == TLe)
+					data->value.data_as__int64 <= expression_data->value.data_as_int ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				else if (operation == TGt)
+					data->value.data_as__int64 > expression_data->value.data_as_int ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				else if (operation == TGe)
+					data->value.data_as__int64 >= expression_data->value.data_as_int ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				break;
+			case TYPE_SHORT:
+				if (operation == TLt)
+					data->value.data_as__int64 < expression_data->value.data_as_short ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				else if (operation == TLe)
+					data->value.data_as__int64 <= expression_data->value.data_as_short ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				else if (operation == TGt)
+					data->value.data_as__int64 > expression_data->value.data_as_short ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				else if (operation == TGe)
+					data->value.data_as__int64 >= expression_data->value.data_as_short ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				break;
+			case TYPE_LONG:
+				if (operation == TLt)
+					data->value.data_as__int64 < expression_data->value.data_as_long ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				else if (operation == TLe)
+					data->value.data_as__int64 <= expression_data->value.data_as_long ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				else if (operation == TGt)
+					data->value.data_as__int64 > expression_data->value.data_as_long ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				else if (operation == TGe)
+					data->value.data_as__int64 >= expression_data->value.data_as_long ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				break;
+			case TYPE__INT64:
+				if (operation == TLt)
+					data->value.data_as__int64 < expression_data->value.data_as__int64 ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				else if (operation == TLe)
+					data->value.data_as__int64 <= expression_data->value.data_as__int64 ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				else if (operation == TGt)
+					data->value.data_as__int64 > expression_data->value.data_as__int64 ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				else if (operation == TGe)
+					data->value.data_as__int64 >= expression_data->value.data_as__int64 ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				break;
+			case TYPE_CHAR:
+				if (operation == TLt)
+					data->value.data_as__int64 < expression_data->value.data_as_char ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				else if (operation == TLe)
+					data->value.data_as__int64 <= expression_data->value.data_as_char ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				else if (operation == TGt)
+					data->value.data_as__int64 > expression_data->value.data_as_char ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				else if (operation == TGe)
+					data->value.data_as__int64 >= expression_data->value.data_as_char ? data->value.data_as__int64 = 1 : data->value.data_as__int64 = 0;
+				break;
+			}
+			break;
+		case TYPE_CHAR:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TLt)
+					data->value.data_as_char < expression_data->value.data_as_int ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				else if (operation == TLe)
+					data->value.data_as_char <= expression_data->value.data_as_int ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				else if (operation == TGt)
+					data->value.data_as_char > expression_data->value.data_as_int ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				else if (operation == TGe)
+					data->value.data_as_char >= expression_data->value.data_as_int ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				break;
+			case TYPE_SHORT:
+				if (operation == TLt)
+					data->value.data_as_char < expression_data->value.data_as_short ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				else if (operation == TLe)
+					data->value.data_as_char <= expression_data->value.data_as_short ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				else if (operation == TGt)
+					data->value.data_as_char > expression_data->value.data_as_short ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				else if (operation == TGe)
+					data->value.data_as_char >= expression_data->value.data_as_short ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				break;
+			case TYPE_LONG:
+				if (operation == TLt)
+					data->value.data_as_char < expression_data->value.data_as_long ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				else if (operation == TLe)
+					data->value.data_as_char <= expression_data->value.data_as_long ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				else if (operation == TGt)
+					data->value.data_as_char > expression_data->value.data_as_long ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				else if (operation == TGe)
+					data->value.data_as_char >= expression_data->value.data_as_long ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				break;
+			case TYPE__INT64:
+				if (operation == TLt)
+					data->value.data_as_char < expression_data->value.data_as__int64 ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				else if (operation == TLe)
+					data->value.data_as_char <= expression_data->value.data_as__int64 ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				else if (operation == TGt)
+					data->value.data_as_char > expression_data->value.data_as__int64 ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				else if (operation == TGe)
+					data->value.data_as_char >= expression_data->value.data_as__int64 ? data->value.data_as_char = 1 : data->value.data_as_char = 0;
+				break;
+			}
+			break;
+		}
 	}
 }
 
@@ -446,9 +1235,149 @@ void TDiagram::addendum(TData* data) {
 
 	type = look_forward(1);
 	while (type == TAdd || type == TSub) {
-		type = scan(lex);
-		multiplier(data);
+		int operation = scan(lex);
+		TData* expression_data = new TData;
+		multiplier(expression_data);
 		type = look_forward(1);
+
+		switch (data->type) {
+		case TYPE_INT:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TAdd)
+					data->value.data_as_int += expression_data->value.data_as_int; 
+				else if (operation == TSub)
+					data->value.data_as_int -= expression_data->value.data_as_int;
+				break;
+			case TYPE_SHORT:
+				if (operation == TAdd)
+					data->value.data_as_int += expression_data->value.data_as_short;
+				else if (operation == TSub)
+					data->value.data_as_int -= expression_data->value.data_as_short;
+				break;
+			case TYPE_LONG:
+				if (operation == TAdd)
+					data->value.data_as_int += expression_data->value.data_as_long;
+				else if (operation == TSub)
+					data->value.data_as_int -= expression_data->value.data_as_long;
+				break;
+			case TYPE__INT64:
+				if (operation == TAdd)
+					data->value.data_as_int += expression_data->value.data_as__int64;
+				else if (operation == TSub)
+					data->value.data_as_int -= expression_data->value.data_as__int64;
+				break;
+			case TYPE_CHAR:
+				if (operation == TAdd)
+					data->value.data_as_int += expression_data->value.data_as_char;
+				else if (operation == TSub)
+					data->value.data_as_int -= expression_data->value.data_as_char;
+				break;
+			}
+			break;
+		case TYPE_SHORT:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TAdd)
+					data->value.data_as_short += expression_data->value.data_as_int;
+				else if (operation == TSub)
+					data->value.data_as_short -= expression_data->value.data_as_int;
+				break;
+			case TYPE_SHORT:
+				if (operation == TAdd)
+					data->value.data_as_short += expression_data->value.data_as_short;
+				else if (operation == TSub)
+					data->value.data_as_short -= expression_data->value.data_as_short;
+				break;
+			case TYPE_LONG:
+				if (operation == TAdd)
+					data->value.data_as_short += expression_data->value.data_as_long;
+				else if (operation == TSub)
+					data->value.data_as_short -= expression_data->value.data_as_long;
+				break;
+			case TYPE__INT64:
+				if (operation == TAdd)
+					data->value.data_as_short += expression_data->value.data_as__int64;
+				else if (operation == TSub)
+					data->value.data_as_short -= expression_data->value.data_as__int64;
+				break;
+			case TYPE_CHAR:
+				if (operation == TAdd)
+					data->value.data_as_short += expression_data->value.data_as_char;
+				else if (operation == TSub)
+					data->value.data_as_short -= expression_data->value.data_as_char;
+				break;
+			}
+			break;
+		case TYPE_LONG:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TAdd)
+					data->value.data_as_long += expression_data->value.data_as_int;
+				else if (operation == TSub)
+					data->value.data_as_long -= expression_data->value.data_as_int;
+				break;
+			case TYPE_SHORT:
+				if (operation == TAdd)
+					data->value.data_as_long += expression_data->value.data_as_short;
+				else if (operation == TSub)
+					data->value.data_as_long -= expression_data->value.data_as_short;
+				break;
+			case TYPE_LONG:
+				if (operation == TAdd)
+					data->value.data_as_long += expression_data->value.data_as_long;
+				else if (operation == TSub)
+					data->value.data_as_long -= expression_data->value.data_as_long;
+				break;
+			case TYPE__INT64:
+				if (operation == TAdd)
+					data->value.data_as_long += expression_data->value.data_as__int64;
+				else if (operation == TSub)
+					data->value.data_as_long -= expression_data->value.data_as__int64;
+				break;
+			case TYPE_CHAR:
+				if (operation == TAdd)
+					data->value.data_as_long += expression_data->value.data_as_char;
+				else if (operation == TSub)
+					data->value.data_as_long -= expression_data->value.data_as_char;
+				break;
+			}
+			break;
+		case TYPE__INT64:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TAdd)
+					data->value.data_as__int64 += expression_data->value.data_as_int;
+				else if (operation == TSub)
+					data->value.data_as__int64 -= expression_data->value.data_as_int;
+				break;
+			case TYPE_SHORT:
+				if (operation == TAdd)
+					data->value.data_as__int64 += expression_data->value.data_as_short;
+				else if (operation == TSub)
+					data->value.data_as__int64 -= expression_data->value.data_as_short;
+				break;
+			case TYPE_LONG:
+				if (operation == TAdd)
+					data->value.data_as__int64 += expression_data->value.data_as_long;
+				else if (operation == TSub)
+					data->value.data_as__int64 -= expression_data->value.data_as_long;
+				break;
+			case TYPE__INT64:
+				if (operation == TAdd)
+					data->value.data_as__int64 += expression_data->value.data_as__int64;
+				else if (operation == TSub)
+					data->value.data_as__int64 -= expression_data->value.data_as__int64;
+				break;
+			case TYPE_CHAR:
+				if (operation == TAdd)
+					data->value.data_as__int64 += expression_data->value.data_as_char;
+				else if (operation == TSub)
+					data->value.data_as__int64 -= expression_data->value.data_as_char;
+				break;
+			}
+			break;
+		}
 	}
 }
 
@@ -460,9 +1389,233 @@ void TDiagram::multiplier(TData* data) {
 
 	type = look_forward(1);
 	while (type == TMul || type == TDiv || type == TMod) {
-		type = scan(lex);
-		unary_operation(data);
+		int operation = scan(lex);
+		TData* expression_data = new TData;
+		unary_operation(expression_data);
 		type = look_forward(1);
+
+		switch (data->type) {
+		case TYPE_INT:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TMul)
+					data->value.data_as_int *= expression_data->value.data_as_int;
+				else if (operation == TDiv)
+					data->value.data_as_int /= expression_data->value.data_as_int;
+				else if (operation == TMod)
+					data->value.data_as_int %= expression_data->value.data_as_int;
+				break;
+			case TYPE_SHORT:
+				if (operation == TMul)
+					data->value.data_as_int *= expression_data->value.data_as_short;
+				else if (operation == TDiv)
+					data->value.data_as_int /= expression_data->value.data_as_short;
+				else if (operation == TMod)
+					data->value.data_as_int %= expression_data->value.data_as_short;
+				break;
+			case TYPE_LONG:
+				if (operation == TMul)
+					data->value.data_as_int *= expression_data->value.data_as_long;
+				else if (operation == TDiv)
+					data->value.data_as_int /= expression_data->value.data_as_long;
+				else if (operation == TMod)
+					data->value.data_as_int %= expression_data->value.data_as_long;
+				break;
+			case TYPE__INT64:
+				if (operation == TMul)
+					data->value.data_as_int *= expression_data->value.data_as__int64;
+				else if (operation == TDiv)
+					data->value.data_as_int /= expression_data->value.data_as__int64;
+				else if (operation == TMod)
+					data->value.data_as_int %= expression_data->value.data_as__int64;
+				break;
+			case TYPE_CHAR:
+				if (operation == TMul)
+					data->value.data_as_int *= expression_data->value.data_as_char;
+				else if (operation == TDiv)
+					data->value.data_as_int /= expression_data->value.data_as_char;
+				else if (operation == TMod)
+					data->value.data_as_int %= expression_data->value.data_as_char;
+				break;
+			}
+			break;
+		case TYPE_SHORT:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TMul)
+					data->value.data_as_short *= expression_data->value.data_as_int;
+				else if (operation == TDiv)
+					data->value.data_as_short /= expression_data->value.data_as_int;
+				else if (operation == TMod)
+					data->value.data_as_short %= expression_data->value.data_as_int;
+				break;
+			case TYPE_SHORT:
+				if (operation == TMul)
+					data->value.data_as_short *= expression_data->value.data_as_short;
+				else if (operation == TDiv)
+					data->value.data_as_short /= expression_data->value.data_as_short;
+				else if (operation == TMod)
+					data->value.data_as_short %= expression_data->value.data_as_short;
+				break;
+			case TYPE_LONG:
+				if (operation == TMul)
+					data->value.data_as_short *= expression_data->value.data_as_long;
+				else if (operation == TDiv)
+					data->value.data_as_short /= expression_data->value.data_as_long;
+				else if (operation == TMod)
+					data->value.data_as_short %= expression_data->value.data_as_long;
+				break;
+			case TYPE__INT64:
+				if (operation == TMul)
+					data->value.data_as_short *= expression_data->value.data_as__int64;
+				else if (operation == TDiv)
+					data->value.data_as_short /= expression_data->value.data_as__int64;
+				else if (operation == TMod)
+					data->value.data_as_short %= expression_data->value.data_as__int64;
+				break;
+			case TYPE_CHAR:
+				if (operation == TMul)
+					data->value.data_as_short *= expression_data->value.data_as_char;
+				else if (operation == TDiv)
+					data->value.data_as_short /= expression_data->value.data_as_char;
+				else if (operation == TMod)
+					data->value.data_as_short %= expression_data->value.data_as_char;
+				break;
+			}
+			break;
+		case TYPE_LONG:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TMul)
+					data->value.data_as_long *= expression_data->value.data_as_int;
+				else if (operation == TDiv)
+					data->value.data_as_long /= expression_data->value.data_as_int;
+				else if (operation == TMod)
+					data->value.data_as_long %= expression_data->value.data_as_int;
+				break;
+			case TYPE_SHORT:
+				if (operation == TMul)
+					data->value.data_as_long *= expression_data->value.data_as_short;
+				else if (operation == TDiv)
+					data->value.data_as_long /= expression_data->value.data_as_short;
+				else if (operation == TMod)
+					data->value.data_as_long %= expression_data->value.data_as_short;
+				break;
+			case TYPE_LONG:
+				if (operation == TMul)
+					data->value.data_as_long *= expression_data->value.data_as_long;
+				else if (operation == TDiv)
+					data->value.data_as_long /= expression_data->value.data_as_long;
+				else if (operation == TMod)
+					data->value.data_as_long %= expression_data->value.data_as_long;
+				break;
+			case TYPE__INT64:
+				if (operation == TMul)
+					data->value.data_as_long *= expression_data->value.data_as__int64;
+				else if (operation == TDiv)
+					data->value.data_as_long /= expression_data->value.data_as__int64;
+				else if (operation == TMod)
+					data->value.data_as_long %= expression_data->value.data_as__int64;
+				break;
+			case TYPE_CHAR:
+				if (operation == TMul)
+					data->value.data_as_long *= expression_data->value.data_as_char;
+				else if (operation == TDiv)
+					data->value.data_as_long /= expression_data->value.data_as_char;
+				else if (operation == TMod)
+					data->value.data_as_long %= expression_data->value.data_as_char;
+				break;
+			}
+			break;
+		case TYPE__INT64:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TMul)
+					data->value.data_as__int64 *= expression_data->value.data_as_int;
+				else if (operation == TDiv)
+					data->value.data_as__int64 /= expression_data->value.data_as_int;
+				else if (operation == TMod)
+					data->value.data_as__int64 %= expression_data->value.data_as_int;
+				break;
+			case TYPE_SHORT:
+				if (operation == TMul)
+					data->value.data_as__int64 *= expression_data->value.data_as_short;
+				else if (operation == TDiv)
+					data->value.data_as__int64 /= expression_data->value.data_as_short;
+				else if (operation == TMod)
+					data->value.data_as__int64 %= expression_data->value.data_as_short;
+				break;
+			case TYPE_LONG:
+				if (operation == TMul)
+					data->value.data_as__int64 *= expression_data->value.data_as_long;
+				else if (operation == TDiv)
+					data->value.data_as__int64 /= expression_data->value.data_as_long;
+				else if (operation == TMod)
+					data->value.data_as__int64 %= expression_data->value.data_as_long;
+				break;
+			case TYPE__INT64:
+				if (operation == TMul)
+					data->value.data_as__int64 *= expression_data->value.data_as__int64;
+				else if (operation == TDiv)
+					data->value.data_as__int64 /= expression_data->value.data_as__int64;
+				else if (operation == TMod)
+					data->value.data_as__int64 %= expression_data->value.data_as__int64;
+				break;
+			case TYPE_CHAR:
+				if (operation == TMul)
+					data->value.data_as__int64 *= expression_data->value.data_as_char;
+				else if (operation == TDiv)
+					data->value.data_as__int64 /= expression_data->value.data_as_char;
+				else if (operation == TMod)
+					data->value.data_as__int64 %= expression_data->value.data_as_char;
+				break;
+			}
+			break;
+		case TYPE_CHAR:
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (operation == TMul)
+					data->value.data_as_char *= expression_data->value.data_as_int;
+				else if (operation == TDiv)
+					data->value.data_as_char /= expression_data->value.data_as_int;
+				else if (operation == TMod)
+					data->value.data_as_char %= expression_data->value.data_as_int;
+				break;
+			case TYPE_SHORT:
+				if (operation == TMul)
+					data->value.data_as_char *= expression_data->value.data_as_short;
+				else if (operation == TDiv)
+					data->value.data_as_char /= expression_data->value.data_as_short;
+				else if (operation == TMod)
+					data->value.data_as_char %= expression_data->value.data_as_short;
+				break;
+			case TYPE_LONG:
+				if (operation == TMul)
+					data->value.data_as_char *= expression_data->value.data_as_long;
+				else if (operation == TDiv)
+					data->value.data_as_char /= expression_data->value.data_as_long;
+				else if (operation == TMod)
+					data->value.data_as_char %= expression_data->value.data_as_long;
+				break;
+			case TYPE__INT64:
+				if (operation == TMul)
+					data->value.data_as_char *= expression_data->value.data_as__int64;
+				else if (operation == TDiv)
+					data->value.data_as_char /= expression_data->value.data_as__int64;
+				else if (operation == TMod)
+					data->value.data_as_char %= expression_data->value.data_as__int64;
+				break;
+			case TYPE_CHAR:
+				if (operation == TMul)
+					data->value.data_as_char *= expression_data->value.data_as_char;
+				else if (operation == TDiv)
+					data->value.data_as_char /= expression_data->value.data_as_char;
+				else if (operation == TMod)
+					data->value.data_as_char %= expression_data->value.data_as_char;
+				break;
+			}
+			break;
+		}
 	}
 }
 
@@ -470,10 +1623,22 @@ void TDiagram::unary_operation(TData* data) {
 	type_lex lex;
 	int type = look_forward(1);
 
-	if (type == TAdd || type == TSub)
+	if (type == TAdd)
 	{
 		type = scan(lex);
 		elementary_expression(data);
+	}
+	else if (type == TSub)
+	{
+		type = scan(lex);
+		elementary_expression(data);
+		switch (data->type) {
+			case TYPE_INT: data->value.data_as_int *= -1; break;
+			case TYPE_SHORT: data->value.data_as_short *= -1; break;
+			case TYPE_LONG: data->value.data_as_long *= -1; break;
+			case TYPE__INT64: data->value.data_as__int64 *= -1; break;
+			case TYPE_CHAR: data->value.data_as_char *= -1; break;
+		}
 	}
 	else
 		elementary_expression(data);
@@ -488,18 +1653,78 @@ void TDiagram::elementary_expression(TData* data) {
 		int type = look_forward(1);
 		if (type == TLeftSquareBracket) {
 			Tree* t = root->semantic_get_type(lex, OBJECT_ARRAY);
-			array_ident();
+			data->type = t->get_node()->data.type;
+			TData* expression_data = new TData;
+			array_ident(expression_data);
+			
+			data->type = t->get_node()->data.type;
+			switch (t->get_node()->data.type) {
+			case TYPE_INT:
+				switch (expression_data->type) {
+				case TYPE_INT: data->value.data_as_int = t->get_node()->data.value.array_as_int[expression_data->value.data_as_int]; break;
+				case TYPE_SHORT: data->value.data_as_int = t->get_node()->data.value.array_as_int[expression_data->value.data_as_short]; break;
+				case TYPE_LONG: data->value.data_as_int = t->get_node()->data.value.array_as_int[expression_data->value.data_as_long]; break;
+				case TYPE__INT64: data->value.data_as_int = t->get_node()->data.value.array_as_int[expression_data->value.data_as__int64]; break;
+				case TYPE_CHAR: data->value.data_as_int = t->get_node()->data.value.array_as_int[expression_data->value.data_as_char]; break;
+				}
+				break;
+			case TYPE_SHORT:
+				switch (expression_data->type) {
+				case TYPE_INT: data->value.data_as_short = t->get_node()->data.value.array_as_short[expression_data->value.data_as_int]; break;
+				case TYPE_SHORT: data->value.data_as_short = t->get_node()->data.value.array_as_short[expression_data->value.data_as_short]; break;
+				case TYPE_LONG: data->value.data_as_short = t->get_node()->data.value.array_as_short[expression_data->value.data_as_long]; break;
+				case TYPE__INT64: data->value.data_as_short = t->get_node()->data.value.array_as_short[expression_data->value.data_as__int64]; break;
+				case TYPE_CHAR: data->value.data_as_short = t->get_node()->data.value.array_as_short[expression_data->value.data_as_char]; break;
+				}
+				break;
+			case TYPE_LONG:
+				switch (expression_data->type) {
+				case TYPE_INT: data->value.data_as_long = t->get_node()->data.value.array_as_long[expression_data->value.data_as_int]; break;
+				case TYPE_SHORT: data->value.data_as_long = t->get_node()->data.value.array_as_long[expression_data->value.data_as_short]; break;
+				case TYPE_LONG: data->value.data_as_long = t->get_node()->data.value.array_as_long[expression_data->value.data_as_long]; break;
+				case TYPE__INT64: data->value.data_as_long = t->get_node()->data.value.array_as_long[expression_data->value.data_as__int64]; break;
+				case TYPE_CHAR: data->value.data_as_long = t->get_node()->data.value.array_as_long[expression_data->value.data_as_char]; break;
+				}
+				break;
+			case TYPE__INT64:
+				switch (expression_data->type) {
+				case TYPE_INT: data->value.data_as__int64 = t->get_node()->data.value.array_as__int64[expression_data->value.data_as_int]; break;
+				case TYPE_SHORT: data->value.data_as__int64 = t->get_node()->data.value.array_as__int64[expression_data->value.data_as_short]; break;
+				case TYPE_LONG: data->value.data_as__int64 = t->get_node()->data.value.array_as__int64[expression_data->value.data_as_long]; break;
+				case TYPE__INT64: data->value.data_as__int64 = t->get_node()->data.value.array_as__int64[expression_data->value.data_as__int64]; break;
+				case TYPE_CHAR: data->value.data_as__int64 = t->get_node()->data.value.array_as__int64[expression_data->value.data_as_char]; break;
+				}
+				break;
+			case TYPE_CHAR:
+				switch (expression_data->type) {
+				case TYPE_INT: data->value.data_as_char = t->get_node()->data.value.array_as_char[expression_data->value.data_as_int]; break;
+				case TYPE_SHORT: data->value.data_as_char = t->get_node()->data.value.array_as_char[expression_data->value.data_as_short]; break;
+				case TYPE_LONG: data->value.data_as_char = t->get_node()->data.value.array_as_char[expression_data->value.data_as_long]; break;
+				case TYPE__INT64: data->value.data_as_char = t->get_node()->data.value.array_as_char[expression_data->value.data_as__int64]; break;
+				case TYPE_CHAR: data->value.data_as_char = t->get_node()->data.value.array_as_char[expression_data->value.data_as_char]; break;
+				}
+				break;
+			}
+
 			return;
 		}
 		Tree* t = root->semantic_get_type(lex, OBJECT_VARIABLE);
 		if (t->get_node()->init != 1)
 			scaner->print_error("Variable not initialized", lex);
+		data->type = t->get_node()->data.type;
+		switch (t->get_node()->data.type) {
+		case TYPE_INT: data->value.data_as_int = t->get_node()->data.value.data_as_int; break;
+		case TYPE_SHORT: data->value.data_as_short = t->get_node()->data.value.data_as_short; break;
+		case TYPE_LONG: data->value.data_as_long = t->get_node()->data.value.data_as_long; break;
+		case TYPE__INT64: data->value.data_as__int64 = t->get_node()->data.value.data_as__int64; break;
+		case TYPE_CHAR: data->value.data_as_char = t->get_node()->data.value.data_as_char; break;
+		}
 		return;
 	}
 	else if (type == TConst10 || type == TConst16) {
 		type = scan(lex);
-		data->type = TYPE_INT;
-		data->value.data_as_int = strtol(lex, NULL, 0);
+		data->type = TYPE__INT64;
+		data->value.data_as__int64 = strtoll(lex, NULL, 0);
 		return;
 	}
 	else if (type == TLeftBracket) {
@@ -513,5 +1738,25 @@ void TDiagram::elementary_expression(TData* data) {
 	else {
 		type = scan(lex);
 		scaner->print_error("Expected expression got", lex);
+	}
+}
+
+void TDiagram::print_variable(Tree* t) {
+	switch(t->get_node()->data.type) {
+	case TYPE_INT: std::cout << t->get_node()->lex << " = " << t->get_node()->data.value.data_as_int << " type of int" << std::endl; break;
+	case TYPE_SHORT: std::cout << t->get_node()->lex << " = " << t->get_node()->data.value.data_as_short << " type of short" << std::endl; break;
+	case TYPE_LONG: std::cout << t->get_node()->lex << " = " << t->get_node()->data.value.data_as_long << " type of long" << std::endl; break;
+	case TYPE__INT64: std::cout << t->get_node()->lex << " = " << t->get_node()->data.value.data_as__int64 << " type of __int64" << std::endl; break;
+	case TYPE_CHAR: std::cout << t->get_node()->lex << " = " << t->get_node()->data.value.data_as_char << " type of char" << std::endl; break;
+	}
+}
+
+void TDiagram::print_array(Tree* t, int index) {
+	switch (t->get_node()->data.type) {
+	case TYPE_INT: std::cout << t->get_node()->lex << "[" << index << "] = " << t->get_node()->data.value.array_as_int[index] << " type of int" << std::endl; break;
+	case TYPE_SHORT: std::cout << t->get_node()->lex << "[" << index << "] = " << t->get_node()->data.value.array_as_short[index] << " type of short" << std::endl; break;
+	case TYPE_LONG: std::cout << t->get_node()->lex << "[" << index << "] = " << t->get_node()->data.value.array_as_long[index] << " type of long" << std::endl; break;
+	case TYPE__INT64: std::cout << t->get_node()->lex << "[" << index << "] = " << t->get_node()->data.value.array_as__int64[index] << " type of __int64" << std::endl; break;
+	case TYPE_CHAR: std::cout << t->get_node()->lex << "[" << index << "] = " << t->get_node()->data.value.array_as_char[index] << " type of char" << std::endl; break;
 	}
 }
