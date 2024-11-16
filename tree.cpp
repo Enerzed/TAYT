@@ -159,14 +159,8 @@ Tree* Tree::semantic_include(type_lex lex, type_object object, type_data type) {
 		n.init = -1;
 		n.object = object;
 		n.data.type = type;
-		switch (type) {
-			case TYPE_INT: n.data.value.data_as_int = 0; break;
-			case TYPE_SHORT: n.data.value.data_as_short = 0; break;
-			case TYPE_LONG: n.data.value.data_as_long = 0; break;
-			case TYPE__INT64: n.data.value.data_as__int64 = 0; break;
-			case TYPE_CHAR: n.data.value.data_as_char = 0; break;
-			case TYPE_VOID: scaner->print_error("Type void is not allowed", lex); break;
-		}
+		n.data.value.array_as__int64 = 0;
+		
 		current->set_left(&n);
 		current = current->left;
 		return current;

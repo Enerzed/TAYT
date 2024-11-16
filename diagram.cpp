@@ -778,6 +778,7 @@ void TDiagram::expression(TData* data) {
 
 		switch (data->type) {
 		case TYPE_INT:
+			data->type = TYPE_CHAR;
 			switch (expression_data->type) {
 			case TYPE_INT:
 				if (operation == TEq)
@@ -812,6 +813,7 @@ void TDiagram::expression(TData* data) {
 			}
 			break;
 		case TYPE_SHORT:
+			data->type = TYPE_CHAR;
 			switch (expression_data->type) {
 			case TYPE_INT:
 				if (operation == TEq)
@@ -846,6 +848,7 @@ void TDiagram::expression(TData* data) {
 			}
 			break;
 		case TYPE_LONG:
+			data->type = TYPE_CHAR;
 			switch (expression_data->type) {
 			case TYPE_INT:
 				if (operation == TEq)
@@ -880,6 +883,7 @@ void TDiagram::expression(TData* data) {
 			}
 			break;
 		case TYPE__INT64:
+			data->type = TYPE_CHAR;
 			switch (expression_data->type) {
 			case TYPE_INT:
 				if (operation == TEq)
@@ -964,6 +968,7 @@ void TDiagram::comparison(TData* data) {
 
 		switch(data->type) {
 		case TYPE_INT:
+			data->type = TYPE_CHAR;
 			switch (expression_data->type) {
 			case TYPE_INT:
 				if (operation == TLt)
@@ -1018,6 +1023,7 @@ void TDiagram::comparison(TData* data) {
 			}
 			break;
 		case TYPE_SHORT:
+			data->type = TYPE_CHAR;
 			switch (expression_data->type) {
 			case TYPE_INT:
 				if (operation == TLt)
@@ -1072,6 +1078,7 @@ void TDiagram::comparison(TData* data) {
 			}
 			break;
 		case TYPE_LONG:
+			data->type = TYPE_CHAR;
 			switch (expression_data->type) {
 			case TYPE_INT:
 				if (operation == TLt)
@@ -1126,6 +1133,7 @@ void TDiagram::comparison(TData* data) {
 			}
 			break;
 		case TYPE__INT64:
+			data->type = TYPE_CHAR;
 			switch (expression_data->type) {
 			case TYPE_INT:
 				if (operation == TLt)
@@ -1256,12 +1264,14 @@ void TDiagram::addendum(TData* data) {
 					data->value.data_as_int -= expression_data->value.data_as_short;
 				break;
 			case TYPE_LONG:
+				data->type = TYPE_LONG;
 				if (operation == TAdd)
 					data->value.data_as_int += expression_data->value.data_as_long;
 				else if (operation == TSub)
 					data->value.data_as_int -= expression_data->value.data_as_long;
 				break;
 			case TYPE__INT64:
+				data->type = TYPE__INT64;
 				if (operation == TAdd)
 					data->value.data_as_int += expression_data->value.data_as__int64;
 				else if (operation == TSub)
@@ -1278,6 +1288,7 @@ void TDiagram::addendum(TData* data) {
 		case TYPE_SHORT:
 			switch (expression_data->type) {
 			case TYPE_INT:
+				data->type = TYPE_INT;
 				if (operation == TAdd)
 					data->value.data_as_short += expression_data->value.data_as_int;
 				else if (operation == TSub)
@@ -1290,12 +1301,14 @@ void TDiagram::addendum(TData* data) {
 					data->value.data_as_short -= expression_data->value.data_as_short;
 				break;
 			case TYPE_LONG:
+				data->type = TYPE_LONG;
 				if (operation == TAdd)
 					data->value.data_as_short += expression_data->value.data_as_long;
 				else if (operation == TSub)
 					data->value.data_as_short -= expression_data->value.data_as_long;
 				break;
 			case TYPE__INT64:
+				data->type = TYPE__INT64;
 				if (operation == TAdd)
 					data->value.data_as_short += expression_data->value.data_as__int64;
 				else if (operation == TSub)
@@ -1330,6 +1343,7 @@ void TDiagram::addendum(TData* data) {
 					data->value.data_as_long -= expression_data->value.data_as_long;
 				break;
 			case TYPE__INT64:
+				data->type = TYPE__INT64;
 				if (operation == TAdd)
 					data->value.data_as_long += expression_data->value.data_as__int64;
 				else if (operation == TSub)
@@ -1377,6 +1391,44 @@ void TDiagram::addendum(TData* data) {
 				break;
 			}
 			break;
+		case TYPE_CHAR: 
+			switch (expression_data->type) {
+			case TYPE_INT:
+				data->type = TYPE_INT;
+				if (operation == TAdd)
+					data->value.data_as_char += expression_data->value.data_as_int;
+				else if (operation == TSub)
+					data->value.data_as_char -= expression_data->value.data_as_int;
+				break;
+			case TYPE_SHORT:
+				data->type = TYPE_SHORT;
+				if (operation == TAdd)
+					data->value.data_as_char += expression_data->value.data_as_short;
+				else if (operation == TSub)
+					data->value.data_as_char -= expression_data->value.data_as_short;
+				break;
+			case TYPE_LONG:
+				data->type = TYPE_LONG;
+				if (operation == TAdd)
+					data->value.data_as_char += expression_data->value.data_as_long;
+				else if (operation == TSub)
+					data->value.data_as_char -= expression_data->value.data_as_long;
+				break;
+			case TYPE__INT64:
+				data->type = TYPE__INT64;
+				if (operation == TAdd)
+					data->value.data_as_char += expression_data->value.data_as__int64;
+				else if (operation == TSub)
+					data->value.data_as_char -= expression_data->value.data_as__int64;
+				break;
+			case TYPE_CHAR:
+				if (operation == TAdd)
+					data->value.data_as_char += expression_data->value.data_as_char;
+				else if (operation == TSub)
+					data->value.data_as_char -= expression_data->value.data_as_char;
+				break;
+			}
+			break;
 		}
 	}
 }
@@ -1414,6 +1466,7 @@ void TDiagram::multiplier(TData* data) {
 					data->value.data_as_int %= expression_data->value.data_as_short;
 				break;
 			case TYPE_LONG:
+				data->type = TYPE_LONG;
 				if (operation == TMul)
 					data->value.data_as_int *= expression_data->value.data_as_long;
 				else if (operation == TDiv)
@@ -1422,6 +1475,7 @@ void TDiagram::multiplier(TData* data) {
 					data->value.data_as_int %= expression_data->value.data_as_long;
 				break;
 			case TYPE__INT64:
+				data->type = TYPE__INT64;
 				if (operation == TMul)
 					data->value.data_as_int *= expression_data->value.data_as__int64;
 				else if (operation == TDiv)
@@ -1442,6 +1496,7 @@ void TDiagram::multiplier(TData* data) {
 		case TYPE_SHORT:
 			switch (expression_data->type) {
 			case TYPE_INT:
+				data->type = TYPE_INT;
 				if (operation == TMul)
 					data->value.data_as_short *= expression_data->value.data_as_int;
 				else if (operation == TDiv)
@@ -1458,6 +1513,7 @@ void TDiagram::multiplier(TData* data) {
 					data->value.data_as_short %= expression_data->value.data_as_short;
 				break;
 			case TYPE_LONG:
+				data->type = TYPE_LONG;
 				if (operation == TMul)
 					data->value.data_as_short *= expression_data->value.data_as_long;
 				else if (operation == TDiv)
@@ -1466,6 +1522,7 @@ void TDiagram::multiplier(TData* data) {
 					data->value.data_as_short %= expression_data->value.data_as_long;
 				break;
 			case TYPE__INT64:
+				data->type = TYPE__INT64;
 				if (operation == TMul)
 					data->value.data_as_short *= expression_data->value.data_as__int64;
 				else if (operation == TDiv)
@@ -1510,6 +1567,7 @@ void TDiagram::multiplier(TData* data) {
 					data->value.data_as_long %= expression_data->value.data_as_long;
 				break;
 			case TYPE__INT64:
+				data->type = TYPE__INT64;
 				if (operation == TMul)
 					data->value.data_as_long *= expression_data->value.data_as__int64;
 				else if (operation == TDiv)
@@ -1574,6 +1632,7 @@ void TDiagram::multiplier(TData* data) {
 		case TYPE_CHAR:
 			switch (expression_data->type) {
 			case TYPE_INT:
+				data->type = TYPE_INT;
 				if (operation == TMul)
 					data->value.data_as_char *= expression_data->value.data_as_int;
 				else if (operation == TDiv)
@@ -1582,6 +1641,7 @@ void TDiagram::multiplier(TData* data) {
 					data->value.data_as_char %= expression_data->value.data_as_int;
 				break;
 			case TYPE_SHORT:
+				data->type = TYPE_SHORT;
 				if (operation == TMul)
 					data->value.data_as_char *= expression_data->value.data_as_short;
 				else if (operation == TDiv)
@@ -1590,6 +1650,7 @@ void TDiagram::multiplier(TData* data) {
 					data->value.data_as_char %= expression_data->value.data_as_short;
 				break;
 			case TYPE_LONG:
+				data->type = TYPE_LONG;
 				if (operation == TMul)
 					data->value.data_as_char *= expression_data->value.data_as_long;
 				else if (operation == TDiv)
@@ -1598,6 +1659,7 @@ void TDiagram::multiplier(TData* data) {
 					data->value.data_as_char %= expression_data->value.data_as_long;
 				break;
 			case TYPE__INT64:
+				data->type = TYPE__INT64;
 				if (operation == TMul)
 					data->value.data_as_char *= expression_data->value.data_as__int64;
 				else if (operation == TDiv)
@@ -1653,6 +1715,7 @@ void TDiagram::elementary_expression(TData* data) {
 		int type = look_forward(1);
 		if (type == TLeftSquareBracket) {
 			Tree* t = root->semantic_get_type(lex, OBJECT_ARRAY);
+
 			data->type = t->get_node()->data.type;
 			TData* expression_data = new TData;
 			array_ident(expression_data);
@@ -1712,13 +1775,7 @@ void TDiagram::elementary_expression(TData* data) {
 		if (t->get_node()->init != 1)
 			scaner->print_error("Variable not initialized", lex);
 		data->type = t->get_node()->data.type;
-		switch (t->get_node()->data.type) {
-		case TYPE_INT: data->value.data_as_int = t->get_node()->data.value.data_as_int; break;
-		case TYPE_SHORT: data->value.data_as_short = t->get_node()->data.value.data_as_short; break;
-		case TYPE_LONG: data->value.data_as_long = t->get_node()->data.value.data_as_long; break;
-		case TYPE__INT64: data->value.data_as__int64 = t->get_node()->data.value.data_as__int64; break;
-		case TYPE_CHAR: data->value.data_as_char = t->get_node()->data.value.data_as_char; break;
-		}
+		data->value = t->get_node()->data.value;
 		return;
 	}
 	else if (type == TConst10 || type == TConst16) {

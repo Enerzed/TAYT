@@ -23,14 +23,15 @@ enum type_object {
 
 union type_value {
 	int data_as_int;
-	int* array_as_int;
 	short data_as_short;
-	short* array_as_short;
 	long data_as_long;
-	long* array_as_long;
 	__int64 data_as__int64;
-	__int64* array_as__int64;
 	char data_as_char;
+
+	int* array_as_int;
+	short* array_as_short;
+	long* array_as_long;
+	__int64* array_as__int64;
 	char* array_as_char;
 };
 

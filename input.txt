@@ -1,7 +1,8 @@
 void func() {
 	char a = 3;
-	int b = a * 2;
+	int g = 5;
+	int b = a * a / 2;
+	long f = 1 <= a;
 	__int64 c = 12/2 + a;
-	long d[2];
-	d[0] = 1;
+	long d[1-5*(2)];
 }
