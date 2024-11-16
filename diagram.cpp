@@ -1444,6 +1444,13 @@ void TDiagram::multiplier(TData* data) {
 		int operation = scan(lex);
 		TData* expression_data = new TData;
 		unary_operation(expression_data);
+		if (
+			expression_data->value.data_as_int == 0 && (operation == TDiv || operation == TMod) || 
+			expression_data->value.data_as_short == 0 && (operation == TDiv || operation == TMod) ||
+			expression_data->value.data_as_long == 0 && (operation == TDiv || operation == TMod) ||
+			expression_data->value.data_as__int64 == 0 && (operation == TDiv || operation == TMod) ||
+			expression_data->value.data_as_char == 0 && (operation == TDiv || operation == TMod))
+			scaner->print_error("Division by zero", "");
 		type = look_forward(1);
 
 		switch (data->type) {

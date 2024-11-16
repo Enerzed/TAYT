@@ -1,8 +1,12 @@
+void func2() {
+	int k;
+}
+
 void func() {
 	char a = 3;
-	int g = 5;
-	int b = a * a / 2;
+	int g = 0x5;
+	int b = 2 % 0;
 	long f = 1 <= a;
 	__int64 c = 12/2 + a;
-	long d[1-5*(2)];
+	//long d[1-5*(2)];
 }
