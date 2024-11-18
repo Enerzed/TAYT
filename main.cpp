@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
         std::cout << "OK" << std::endl;
     else
 		std::cout << "ERROR" << std::endl;
-    diagram->root->print();
+    //diagram->root->print();
 }
 
 /*

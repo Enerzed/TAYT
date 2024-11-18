@@ -461,17 +461,17 @@ void TDiagram::assignment() {
 		switch (expression_data->type) {
 		case TYPE_INT: data->value.data_as_int = expression_data->value.data_as_int; break;
 		case TYPE_SHORT: data->value.data_as_int = expression_data->value.data_as_short; break;
-		case TYPE_LONG: data->value.data_as_int = expression_data->value.data_as_long; break;
-		case TYPE__INT64: data->value.data_as_int = expression_data->value.data_as__int64; break;
+		case TYPE_LONG: data->value.data_as_int = expression_data->value.data_as_long; scaner->print_warning("Warning: Conversion from long to int", ""); break;
+		case TYPE__INT64: data->value.data_as_int = expression_data->value.data_as__int64; scaner->print_warning("Warning: Conversion from __int64 to int", ""); break;
 		case TYPE_CHAR: data->value.data_as_int = expression_data->value.data_as_char; break;
 		}
 		break;
 	case TYPE_SHORT:
 		switch (expression_data->type) {
-		case TYPE_INT: data->value.data_as_short = expression_data->value.data_as_int; break;
+		case TYPE_INT: data->value.data_as_short = expression_data->value.data_as_int; scaner->print_warning("Warning: Conversion from int to short", ""); break;
 		case TYPE_SHORT: data->value.data_as_short = expression_data->value.data_as_short; break;
-		case TYPE_LONG: data->value.data_as_short = expression_data->value.data_as_long; break;
-		case TYPE__INT64: data->value.data_as_short = expression_data->value.data_as__int64; break;
+		case TYPE_LONG: data->value.data_as_short = expression_data->value.data_as_long; scaner->print_warning("Warning: Conversion from long to short", ""); break;
+		case TYPE__INT64: data->value.data_as_short = expression_data->value.data_as__int64; scaner->print_warning("Warning: Conversion from __int64 to short", ""); break;
 		case TYPE_CHAR: data->value.data_as_short = expression_data->value.data_as_char; break;
 		}
 		break;
@@ -480,7 +480,7 @@ void TDiagram::assignment() {
 		case TYPE_INT: data->value.data_as_long = expression_data->value.data_as_int; break;
 		case TYPE_SHORT: data->value.data_as_long = expression_data->value.data_as_short; break;
 		case TYPE_LONG: data->value.data_as_long = expression_data->value.data_as_long; break;
-		case TYPE__INT64: data->value.data_as_long = expression_data->value.data_as__int64; break;
+		case TYPE__INT64: data->value.data_as_long = expression_data->value.data_as__int64; scaner->print_warning("Warning: Conversion from __int64 to long", ""); break;
 		case TYPE_CHAR: data->value.data_as_long = expression_data->value.data_as_char; break;
 		}
 		break;
@@ -495,10 +495,10 @@ void TDiagram::assignment() {
 		break;
 	case TYPE_CHAR:
 		switch (expression_data->type) {
-		case TYPE_INT: data->value.data_as_char = expression_data->value.data_as_int; break;
-		case TYPE_SHORT: data->value.data_as_char = expression_data->value.data_as_short; break;
-		case TYPE_LONG: data->value.data_as_char = expression_data->value.data_as_long; break;
-		case TYPE__INT64: data->value.data_as_char = expression_data->value.data_as__int64; break;
+		case TYPE_INT: data->value.data_as_char = expression_data->value.data_as_int; scaner->print_warning("Warning: Conversion from int to char", ""); break;
+		case TYPE_SHORT: data->value.data_as_char = expression_data->value.data_as_short; scaner->print_warning("Warning: Conversion from short to char", ""); break;
+		case TYPE_LONG: data->value.data_as_char = expression_data->value.data_as_long; scaner->print_warning("Warning: Conversion from long to char", ""); break;
+		case TYPE__INT64: data->value.data_as_char = expression_data->value.data_as__int64; scaner->print_warning("Warning: Conversion from __int64 to char", ""); break;
 		case TYPE_CHAR: data->value.data_as_char = expression_data->value.data_as_char; break;
 		}
 		break;
