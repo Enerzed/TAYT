@@ -3,10 +3,12 @@ void func2() {
 }
 
 void func() {
-	char a = 3;
-	int g = 0x5;
-	int b = 2 % 0;
-	long f = 1 <= a;
-	__int64 c = 12/2 + a;
-	//long d[1-5*(2)];
+	int g;
+	g = 3;
+	short f = g;
+	short a[3] = {1, 2, 3};
+	int k[10] = {};
+	a[0] = 102;
+	a[2] = 103 + a[0] - 275;
+	long b = 100+ a[1] + a[2] + k[0] + 1002;
 }

@@ -197,47 +197,72 @@ void TDiagram::array() {
 	switch (data->type) {
 	case TYPE_INT:
 		switch (expression_data->type) {
-		case TYPE_INT: if (expression_data->value.data_as_int > 0) data->value.array_as_int = new int(expression_data->value.data_as_int); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE_SHORT: if (expression_data->value.data_as_short > 0) data->value.array_as_int = new int(expression_data->value.data_as_short); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE_LONG: if (expression_data->value.data_as_long > 0) data->value.array_as_int = new int(expression_data->value.data_as_long); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE__INT64: if (expression_data->value.data_as__int64 > 0) data->value.array_as_int = new int(expression_data->value.data_as__int64); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE_CHAR: if (expression_data->value.data_as_char > 0) data->value.array_as_int = new int(expression_data->value.data_as_char); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_INT: if (expression_data->value.data_as_int > 0) data->value.array_as_int = new int[expression_data->value.data_as_int]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_int; break;
+		case TYPE_SHORT: if (expression_data->value.data_as_short > 0) data->value.array_as_int = new int[expression_data->value.data_as_short]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_short; break;
+		case TYPE_LONG: if (expression_data->value.data_as_long > 0) data->value.array_as_int = new int[expression_data->value.data_as_long]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_long; break;
+		case TYPE__INT64: if (expression_data->value.data_as__int64 > 0) data->value.array_as_int = new int[expression_data->value.data_as__int64]; else scaner->print_error("Array size must be greater than 0", lex); 
+			t->get_node()->array_size = expression_data->value.data_as__int64; break;
+		case TYPE_CHAR: if (expression_data->value.data_as_char > 0) data->value.array_as_int = new int[expression_data->value.data_as_char]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_char; break;
 		}
 		break;
 	case TYPE_SHORT:
 		switch (expression_data->type) {
-		case TYPE_INT: if (expression_data->value.data_as_int > 0) data->value.array_as_short = new short(expression_data->value.data_as_int); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE_SHORT: if (expression_data->value.data_as_short > 0) data->value.array_as_short = new short(expression_data->value.data_as_short); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE_LONG: if (expression_data->value.data_as_long > 0) data->value.array_as_short = new short(expression_data->value.data_as_long); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE__INT64: if (expression_data->value.data_as__int64 > 0) data->value.array_as_short = new short(expression_data->value.data_as__int64); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE_CHAR: if (expression_data->value.data_as_char > 0) data->value.array_as_short = new short(expression_data->value.data_as_char); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_INT: if (expression_data->value.data_as_int > 0) data->value.array_as_short = new short[expression_data->value.data_as_int]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_int; break;
+		case TYPE_SHORT: if (expression_data->value.data_as_short > 0) data->value.array_as_short = new short[expression_data->value.data_as_short]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_short; break;
+		case TYPE_LONG: if (expression_data->value.data_as_long > 0) data->value.array_as_short = new short[expression_data->value.data_as_long]; else scaner->print_error("Array size must be greater than 0", lex); 
+			t->get_node()->array_size = expression_data->value.data_as_long; break;
+		case TYPE__INT64: if (expression_data->value.data_as__int64 > 0) data->value.array_as_short = new short[expression_data->value.data_as__int64]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as__int64; break;
+		case TYPE_CHAR: if (expression_data->value.data_as_char > 0) data->value.array_as_short = new short[expression_data->value.data_as_char]; else scaner->print_error("Array size must be greater than 0", lex); 
+			t->get_node()->array_size = expression_data->value.data_as_char; break;
 		}
 		break;
 	case TYPE_LONG:
 		switch (expression_data->type) {
-		case TYPE_INT: if (expression_data->value.data_as_int > 0) data->value.array_as_long = new long(expression_data->value.data_as_int); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE_SHORT: if (expression_data->value.data_as_short > 0) data->value.array_as_long = new long(expression_data->value.data_as_short); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE_LONG: if (expression_data->value.data_as_long > 0) data->value.array_as_long = new long(expression_data->value.data_as_long); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE__INT64: if (expression_data->value.data_as__int64 > 0) data->value.array_as_long = new long(expression_data->value.data_as__int64); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE_CHAR: if (expression_data->value.data_as_char > 0) data->value.array_as_long = new long(expression_data->value.data_as_char); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_INT: if (expression_data->value.data_as_int > 0) data->value.array_as_long = new long[expression_data->value.data_as_int]; else scaner->print_error("Array size must be greater than 0", lex); 
+			t->get_node()->array_size = expression_data->value.data_as_int; break;
+		case TYPE_SHORT: if (expression_data->value.data_as_short > 0) data->value.array_as_long = new long[expression_data->value.data_as_short]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_short; break;
+		case TYPE_LONG: if (expression_data->value.data_as_long > 0) data->value.array_as_long = new long[expression_data->value.data_as_long]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_long; break;
+		case TYPE__INT64: if (expression_data->value.data_as__int64 > 0) data->value.array_as_long = new long[expression_data->value.data_as__int64]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as__int64; break;
+		case TYPE_CHAR: if (expression_data->value.data_as_char > 0) data->value.array_as_long = new long[expression_data->value.data_as_char]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_char; break;
 		}
 		break;
 	case TYPE__INT64:
 		switch (expression_data->type) {
-		case TYPE_INT: if (expression_data->value.data_as_int > 0) data->value.array_as__int64 = new __int64(expression_data->value.data_as_int); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE_SHORT: if (expression_data->value.data_as_short > 0) data->value.array_as__int64 = new __int64(expression_data->value.data_as_short); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE_LONG: if (expression_data->value.data_as_long > 0) data->value.array_as__int64 = new __int64(expression_data->value.data_as_long); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE__INT64: if (expression_data->value.data_as__int64 > 0) data->value.array_as__int64 = new __int64(expression_data->value.data_as__int64); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE_CHAR: if (expression_data->value.data_as_char > 0) data->value.array_as__int64 = new __int64(expression_data->value.data_as_char); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_INT: if (expression_data->value.data_as_int > 0) data->value.array_as__int64 = new __int64[expression_data->value.data_as_int]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_int; break;
+		case TYPE_SHORT: if (expression_data->value.data_as_short > 0) data->value.array_as__int64 = new __int64[expression_data->value.data_as_short]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_short; break;
+		case TYPE_LONG: if (expression_data->value.data_as_long > 0) data->value.array_as__int64 = new __int64[expression_data->value.data_as_long]; else scaner->print_error("Array size must be greater than 0", lex); 
+			t->get_node()->array_size = expression_data->value.data_as_long; break;
+		case TYPE__INT64: if (expression_data->value.data_as__int64 > 0) data->value.array_as__int64 = new __int64[expression_data->value.data_as__int64]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as__int64; break;
+		case TYPE_CHAR: if (expression_data->value.data_as_char > 0) data->value.array_as__int64 = new __int64[expression_data->value.data_as_char]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_char; break;
 		}
 		break;
 	case TYPE_CHAR:
 		switch (expression_data->type) {
-		case TYPE_INT: if (expression_data->value.data_as_int > 0) data->value.array_as_char = new char(expression_data->value.data_as_int); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE_SHORT: if (expression_data->value.data_as_short > 0) data->value.array_as_char = new char(expression_data->value.data_as_short); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE_LONG: if (expression_data->value.data_as_long > 0) data->value.array_as_char = new char(expression_data->value.data_as_long); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE__INT64: if (expression_data->value.data_as__int64 > 0) data->value.array_as_char = new char(expression_data->value.data_as__int64); else scaner->print_error("Array size must be greater than 0", lex); break;
-		case TYPE_CHAR: if (expression_data->value.data_as_char > 0) data->value.array_as_char = new char(expression_data->value.data_as_char); else scaner->print_error("Array size must be greater than 0", lex); break;
+		case TYPE_INT: if (expression_data->value.data_as_int > 0) data->value.array_as_char = new char[expression_data->value.data_as_int]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_int; break;
+		case TYPE_SHORT: if (expression_data->value.data_as_short > 0) data->value.array_as_char = new char[expression_data->value.data_as_short]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_short; break;
+		case TYPE_LONG: if (expression_data->value.data_as_long > 0) data->value.array_as_char = new char[expression_data->value.data_as_long]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_long; break;
+		case TYPE__INT64: if (expression_data->value.data_as__int64 > 0) data->value.array_as_char = new char[expression_data->value.data_as__int64]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as__int64; break;
+		case TYPE_CHAR: if (expression_data->value.data_as_char > 0) data->value.array_as_char = new char[expression_data->value.data_as_char]; else scaner->print_error("Array size must be greater than 0", lex);
+			t->get_node()->array_size = expression_data->value.data_as_char; break;
 		}
 		break;
 	}
@@ -253,7 +278,7 @@ void TDiagram::array() {
 		type = scan(lex);
 		if (type != TLeftBrace)
 			scaner->print_error("Expected { got", lex);
-		array_expression();
+		array_expression(t);
 		type = scan(lex);
 		if (type != TRightBrace)
 			scaner->print_error("Expected } got", lex);
@@ -261,18 +286,128 @@ void TDiagram::array() {
 	}
 }
 
-void TDiagram::array_expression() {
+void TDiagram::array_expression(Tree* t) {
 	type_lex lex;
 	int type;
 
+	for (int i = 0; i < t->get_node()->array_size; i++) {
+		if (t->get_node()->data.type == TYPE_INT)
+			t->get_node()->data.value.array_as_int[i] = 0;
+		if (t->get_node()->data.type == TYPE_SHORT)
+			t->get_node()->data.value.array_as_short[i] = 0;
+		if (t->get_node()->data.type == TYPE_LONG)
+			t->get_node()->data.value.array_as_long[i] = 0;
+		if (t->get_node()->data.type == TYPE__INT64)
+			t->get_node()->data.value.array_as__int64[i] = 0;
+		if (t->get_node()->data.type == TYPE_CHAR)
+			t->get_node()->data.value.array_as_char[i] = 0;
+	}
+
 	type = look_forward(1);
 	if (type != TRightBrace) {
-		TData* data = &root->get_current_node()->data;
-		expression(data);
+		TData* expression_data = new TData();
+		expression(expression_data);
+		
+		switch (t->get_node()->data.type) {
+		case TYPE_INT:
+			switch (expression_data->type) {
+			case TYPE_INT: t->get_node()->data.value.array_as_int[0] = expression_data->value.data_as_int; break;
+			case TYPE_SHORT: t->get_node()->data.value.array_as_int[0] = expression_data->value.data_as_short; break;
+			case TYPE_LONG: t->get_node()->data.value.array_as_int[0] = expression_data->value.data_as_long; break;
+			case TYPE__INT64: t->get_node()->data.value.array_as_int[0] = expression_data->value.data_as__int64; break;
+			case TYPE_CHAR: t->get_node()->data.value.array_as_int[0] = expression_data->value.data_as_char; break;
+			}
+			break;
+		case TYPE_SHORT:
+			switch (expression_data->type) {
+			case TYPE_INT: t->get_node()->data.value.array_as_short[0] = expression_data->value.data_as_int; break;
+			case TYPE_SHORT: t->get_node()->data.value.array_as_short[0] = expression_data->value.data_as_short; break;
+			case TYPE_LONG: t->get_node()->data.value.array_as_short[0] = expression_data->value.data_as_long; break;
+			case TYPE__INT64: t->get_node()->data.value.array_as_short[0] = expression_data->value.data_as__int64; break;
+			case TYPE_CHAR: t->get_node()->data.value.array_as_short[0] = expression_data->value.data_as_char; break;
+			}
+			break;
+		case TYPE_LONG:
+			switch (expression_data->type) {
+			case TYPE_INT: t->get_node()->data.value.array_as_long[0] = expression_data->value.data_as_int; break;
+			case TYPE_SHORT: t->get_node()->data.value.array_as_long[0] = expression_data->value.data_as_short; break;
+			case TYPE_LONG: t->get_node()->data.value.array_as_long[0] = expression_data->value.data_as_long; break;
+			case TYPE__INT64: t->get_node()->data.value.array_as_long[0] = expression_data->value.data_as__int64; break;
+			case TYPE_CHAR: t->get_node()->data.value.array_as_long[0] = expression_data->value.data_as_char; break;
+			}
+			break;
+		case TYPE__INT64:
+			switch (expression_data->type) {
+			case TYPE_INT: t->get_node()->data.value.array_as__int64[0] = expression_data->value.data_as_int; break;
+			case TYPE_SHORT: t->get_node()->data.value.array_as__int64[0] = expression_data->value.data_as_short; break;
+			case TYPE_LONG: t->get_node()->data.value.array_as__int64[0] = expression_data->value.data_as_long; break;
+			case TYPE__INT64: t->get_node()->data.value.array_as__int64[0] = expression_data->value.data_as__int64; break;
+			case TYPE_CHAR: t->get_node()->data.value.array_as__int64[0] = expression_data->value.data_as_char; break;
+			}
+			break;
+		case TYPE_CHAR:
+			switch (expression_data->type) {
+			case TYPE_INT: t->get_node()->data.value.array_as_char[0] = expression_data->value.data_as_int; break;
+			case TYPE_SHORT: t->get_node()->data.value.array_as_char[0] = expression_data->value.data_as_short; break;
+			case TYPE_LONG: t->get_node()->data.value.array_as_char[0] = expression_data->value.data_as_long; break;
+			case TYPE__INT64: t->get_node()->data.value.array_as_char[0] = expression_data->value.data_as__int64; break;
+			case TYPE_CHAR: t->get_node()->data.value.array_as_char[0] = expression_data->value.data_as_char; break;
+			}
+			break;
+		}
+		int counter = 1;
 		type = look_forward(1);
 		while (type == TComma) {
 			type = scan(lex);
-			expression(data);
+			expression(expression_data);
+			switch (t->get_node()->data.type) {
+			case TYPE_INT:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_int[counter] = expression_data->value.data_as_int; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_int[counter] = expression_data->value.data_as_short; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_int[counter] = expression_data->value.data_as_long; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_int[counter] = expression_data->value.data_as__int64; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_int[counter] = expression_data->value.data_as_char; break;
+				}
+				break;
+			case TYPE_SHORT:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_short[counter] = expression_data->value.data_as_int; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_short[counter] = expression_data->value.data_as_short; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_short[counter] = expression_data->value.data_as_long; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_short[counter] = expression_data->value.data_as__int64; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_short[counter] = expression_data->value.data_as_char; break;
+				}
+				break;
+			case TYPE_LONG:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_long[counter] = expression_data->value.data_as_int; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_long[counter] = expression_data->value.data_as_short; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_long[counter] = expression_data->value.data_as_long; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_long[counter] = expression_data->value.data_as__int64; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_long[counter] = expression_data->value.data_as_char; break;
+				}
+				break;
+			case TYPE__INT64:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as__int64[counter] = expression_data->value.data_as_int; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as__int64[counter] = expression_data->value.data_as_short; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as__int64[counter] = expression_data->value.data_as_long; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as__int64[counter] = expression_data->value.data_as__int64; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as__int64[0] = expression_data->value.data_as_char; break;
+				}
+				break;
+			case TYPE_CHAR:
+				switch (expression_data->type) {
+				case TYPE_INT: t->get_node()->data.value.array_as_char[counter] = expression_data->value.data_as_int; break;
+				case TYPE_SHORT: t->get_node()->data.value.array_as_char[counter] = expression_data->value.data_as_short; break;
+				case TYPE_LONG: t->get_node()->data.value.array_as_char[counter] = expression_data->value.data_as_long; break;
+				case TYPE__INT64: t->get_node()->data.value.array_as_char[counter] = expression_data->value.data_as__int64; break;
+				case TYPE_CHAR: t->get_node()->data.value.array_as_char[counter] = expression_data->value.data_as_char; break;
+				}
+				break;
+			}
+			counter++;
 			type = look_forward(1);
 		}
 	}
@@ -289,9 +424,7 @@ void TDiagram::array_ident(TData* data) {
 		scaner->print_error("Expected [ got", lex);
 	}
 
-	TData* expression_data = new TData;
-	expression(expression_data);
-	data = expression_data;
+	expression(data);
 
 	type = scan(lex);
 	if (type != TRightSquareBracket) {
@@ -456,6 +589,29 @@ void TDiagram::operator_() {
 
 		expression(assignment_data);
 
+		switch (expression_data->type) {
+		case TYPE_INT:
+			if (expression_data->value.data_as_int >= t->get_node()->array_size || expression_data->value.data_as_int < 0)
+				scaner->print_error("Array index out of range", "");
+			break;
+		case TYPE_SHORT:
+			if (expression_data->value.data_as_short >= t->get_node()->array_size || expression_data->value.data_as_short < 0)
+				scaner->print_error("Array index out of range", "");
+			break;
+		case TYPE_LONG:
+			if (expression_data->value.data_as_long >= t->get_node()->array_size || expression_data->value.data_as_long < 0)
+				scaner->print_error("Array index out of range", "");
+			break;
+		case TYPE__INT64:
+			if (expression_data->value.data_as__int64 >= t->get_node()->array_size || expression_data->value.data_as__int64 < 0)
+				scaner->print_error("Array index out of range", "");
+			break;
+		case TYPE_CHAR:
+			if (expression_data->value.data_as_char >= t->get_node()->array_size || expression_data->value.data_as_char < 0)
+				scaner->print_error("Array index out of range", "");
+			break;
+		}
+
 		switch (data->type) {
 		case TYPE_INT:
 			switch (assignment_data->type) {
@@ -463,45 +619,45 @@ void TDiagram::operator_() {
 				switch (expression_data->type) {
 				case TYPE_INT: data->value.array_as_int[expression_data->value.data_as_int] = assignment_data->value.data_as_int; break;
 				case TYPE_SHORT: data->value.array_as_int[expression_data->value.data_as_short] = assignment_data->value.data_as_int; break;
-				case TYPE_LONG:	data->value.array_as_int[expression_data->value.data_as_long] = assignment_data->value.data_as_int; break;
-				case TYPE__INT64: data->value.array_as_int[expression_data->value.data_as__int64] = assignment_data->value.data_as_int; break;
+				case TYPE_LONG:	data->value.array_as_int[expression_data->value.data_as_long] = assignment_data->value.data_as_int; scaner->print_warning("Warning: long to int conversion", ""); //"break;
+				case TYPE__INT64: data->value.array_as_int[expression_data->value.data_as__int64] = assignment_data->value.data_as_int; scaner->print_warning("Warning: __int64 to int conversion", ""); //"break;
 				case TYPE_CHAR: data->value.array_as_int[expression_data->value.data_as_char] = assignment_data->value.data_as_int; break;
 				}
 				break;
 			case TYPE_SHORT:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_int] = assignment_data->value.data_as_short; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_short] = assignment_data->value.data_as_short; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_int[expression_data->value.data_as_long] = assignment_data->value.data_as_short; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_int[expression_data->value.data_as__int64] = assignment_data->value.data_as_short; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_int[expression_data->value.data_as_char] = assignment_data->value.data_as_short; break;
+				case TYPE_INT: data->value.array_as_int[expression_data->value.data_as_int] = assignment_data->value.data_as_short; scaner->print_warning("Warning: int to short conversion", ""); break;
+				case TYPE_SHORT: data->value.array_as_int[expression_data->value.data_as_short] = assignment_data->value.data_as_short; break;
+				case TYPE_LONG: data->value.array_as_int[expression_data->value.data_as_long] = assignment_data->value.data_as_short; scaner->print_warning("Warning: long to short conversion", ""); break;
+				case TYPE__INT64: data->value.array_as_int[expression_data->value.data_as__int64] = assignment_data->value.data_as_short; scaner->print_warning("Warning: __int64 to short conversion", ""); break;
+				case TYPE_CHAR: data->value.array_as_int[expression_data->value.data_as_char] = assignment_data->value.data_as_short; break;
 				}
 				break;
 			case TYPE_LONG:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_int] = assignment_data->value.data_as_long; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_short] = assignment_data->value.data_as_long; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_int[expression_data->value.data_as_long] = assignment_data->value.data_as_long; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_int[expression_data->value.data_as__int64] = assignment_data->value.data_as_long; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_int[expression_data->value.data_as_char] = assignment_data->value.data_as_long; break;
+				case TYPE_INT: data->value.array_as_int[expression_data->value.data_as_int] = assignment_data->value.data_as_long; break;
+				case TYPE_SHORT: data->value.array_as_int[expression_data->value.data_as_short] = assignment_data->value.data_as_long; break;
+				case TYPE_LONG: data->value.array_as_int[expression_data->value.data_as_long] = assignment_data->value.data_as_long; break;
+				case TYPE__INT64: data->value.array_as_int[expression_data->value.data_as__int64] = assignment_data->value.data_as_long; scaner->print_warning("Warning: __int64 to long conversion", ""); break;
+				case TYPE_CHAR: data->value.array_as_int[expression_data->value.data_as_char] = assignment_data->value.data_as_long; break;
 				}
 				break;
 			case TYPE__INT64:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_int] = assignment_data->value.data_as__int64; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_short] = assignment_data->value.data_as__int64; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_int[expression_data->value.data_as_long] = assignment_data->value.data_as__int64; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_int[expression_data->value.data_as__int64] = assignment_data->value.data_as__int64; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_int[expression_data->value.data_as_char] = assignment_data->value.data_as__int64; break;
+				case TYPE_INT: data->value.array_as_int[expression_data->value.data_as_int] = assignment_data->value.data_as__int64; break;
+				case TYPE_SHORT: data->value.array_as_int[expression_data->value.data_as_short] = assignment_data->value.data_as__int64; break;
+				case TYPE_LONG: data->value.array_as_int[expression_data->value.data_as_long] = assignment_data->value.data_as__int64; break;
+				case TYPE__INT64: data->value.array_as_int[expression_data->value.data_as__int64] = assignment_data->value.data_as__int64; break;
+				case TYPE_CHAR: data->value.array_as_int[expression_data->value.data_as_char] = assignment_data->value.data_as__int64; break;
 				}
 				break;
 			case TYPE_CHAR:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_int] = assignment_data->value.data_as_char; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_int[expression_data->value.data_as_short] = assignment_data->value.data_as_char; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_int[expression_data->value.data_as_long] = assignment_data->value.data_as_char; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_int[expression_data->value.data_as__int64] = assignment_data->value.data_as_char; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_int[expression_data->value.data_as_char] = assignment_data->value.data_as_char; break;
+				case TYPE_INT: data->value.array_as_int[expression_data->value.data_as_int] = assignment_data->value.data_as_char; scaner->print_warning("Warning: int to char conversion", ""); break;
+				case TYPE_SHORT: data->value.array_as_int[expression_data->value.data_as_short] = assignment_data->value.data_as_char; scaner->print_warning("Warning: short to char conversion", ""); break;
+				case TYPE_LONG: data->value.array_as_int[expression_data->value.data_as_long] = assignment_data->value.data_as_char; scaner->print_warning("Warning: long to char conversion", ""); break;
+				case TYPE__INT64: data->value.array_as_int[expression_data->value.data_as__int64] = assignment_data->value.data_as_char; scaner->print_warning("Warning: __int64 to char conversion", ""); break;
+				case TYPE_CHAR: data->value.array_as_int[expression_data->value.data_as_char] = assignment_data->value.data_as_char; break;
 				}
 				break;
 			}
@@ -510,38 +666,47 @@ void TDiagram::operator_() {
 			switch (assignment_data->type) {
 			case TYPE_INT:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_int] = assignment_data->value.data_as_int; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_short] = assignment_data->value.data_as_int; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_short[expression_data->value.data_as_long] = assignment_data->value.data_as_int; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_short[expression_data->value.data_as__int64] = assignment_data->value.data_as_int; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_short[expression_data->value.data_as_char] = assignment_data->value.data_as_int; break;
+				case TYPE_INT: data->value.array_as_short[expression_data->value.data_as_int] = assignment_data->value.data_as_int; break;
+				case TYPE_SHORT: data->value.array_as_short[expression_data->value.data_as_short] = assignment_data->value.data_as_int; break;
+				case TYPE_LONG: data->value.array_as_short[expression_data->value.data_as_long] = assignment_data->value.data_as_int; break;
+				case TYPE__INT64: data->value.array_as_short[expression_data->value.data_as__int64] = assignment_data->value.data_as_int; break;
+				case TYPE_CHAR: data->value.array_as_short[expression_data->value.data_as_char] = assignment_data->value.data_as_int; break;
+				}
+				break;
+			case TYPE_SHORT:
+				switch (expression_data->type) {
+				case TYPE_INT: data->value.array_as_short[expression_data->value.data_as_int] = assignment_data->value.data_as_short; break;
+				case TYPE_SHORT: data->value.array_as_short[expression_data->value.data_as_short] = assignment_data->value.data_as_short; break;
+				case TYPE_LONG: data->value.array_as_short[expression_data->value.data_as_long] = assignment_data->value.data_as_short; break;
+				case TYPE__INT64: data->value.array_as_short[expression_data->value.data_as__int64] = assignment_data->value.data_as_short; break;
+				case TYPE_CHAR: data->value.array_as_short[expression_data->value.data_as_char] = assignment_data->value.data_as_short; break;
 				}
 				break;
 			case TYPE_LONG:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_int] = assignment_data->value.data_as_long; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_short] = assignment_data->value.data_as_long; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_short[expression_data->value.data_as_long] = assignment_data->value.data_as_long; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_short[expression_data->value.data_as__int64] = assignment_data->value.data_as_long; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_short[expression_data->value.data_as_char] = assignment_data->value.data_as_long; break;
+				case TYPE_INT: data->value.array_as_short[expression_data->value.data_as_int] = assignment_data->value.data_as_long; break;
+				case TYPE_SHORT: data->value.array_as_short[expression_data->value.data_as_short] = assignment_data->value.data_as_long; break;
+				case TYPE_LONG: data->value.array_as_short[expression_data->value.data_as_long] = assignment_data->value.data_as_long; break;
+				case TYPE__INT64: data->value.array_as_short[expression_data->value.data_as__int64] = assignment_data->value.data_as_long; break;
+				case TYPE_CHAR: data->value.array_as_short[expression_data->value.data_as_char] = assignment_data->value.data_as_long; break;
 				}
 				break;
 			case TYPE__INT64:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_int] = assignment_data->value.data_as__int64; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_short] = assignment_data->value.data_as__int64; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_short[expression_data->value.data_as_long] = assignment_data->value.data_as__int64; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_short[expression_data->value.data_as__int64] = assignment_data->value.data_as__int64; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_short[expression_data->value.data_as_char] = assignment_data->value.data_as__int64; break;
+				case TYPE_INT: data->value.array_as_short[expression_data->value.data_as_int] = assignment_data->value.data_as__int64; break;
+				case TYPE_SHORT: data->value.array_as_short[expression_data->value.data_as_short] = assignment_data->value.data_as__int64; break;
+				case TYPE_LONG: data->value.array_as_short[expression_data->value.data_as_long] = assignment_data->value.data_as__int64; break;
+				case TYPE__INT64: data->value.array_as_short[expression_data->value.data_as__int64] = assignment_data->value.data_as__int64; break;
+				case TYPE_CHAR: data->value.array_as_short[expression_data->value.data_as_char] = assignment_data->value.data_as__int64; break;
 				}
 				break;
 			case TYPE_CHAR:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_int] = assignment_data->value.data_as_char; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_short[expression_data->value.data_as_short] = assignment_data->value.data_as_char; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_short[expression_data->value.data_as_long] = assignment_data->value.data_as_char; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_short[expression_data->value.data_as__int64] = assignment_data->value.data_as_char; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_short[expression_data->value.data_as_char] = assignment_data->value.data_as_char; break;
+				case TYPE_INT: data->value.array_as_short[expression_data->value.data_as_int] = assignment_data->value.data_as_char; break;
+				case TYPE_SHORT: data->value.array_as_short[expression_data->value.data_as_short] = assignment_data->value.data_as_char; break;
+				case TYPE_LONG: data->value.array_as_short[expression_data->value.data_as_long] = assignment_data->value.data_as_char; break;
+				case TYPE__INT64: data->value.array_as_short[expression_data->value.data_as__int64] = assignment_data->value.data_as_char; break;
+				case TYPE_CHAR: data->value.array_as_short[expression_data->value.data_as_char] = assignment_data->value.data_as_char; break;
 				}
 				break;
 			}
@@ -550,146 +715,131 @@ void TDiagram::operator_() {
 			switch (assignment_data->type) {
 			case TYPE_INT:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_int] = assignment_data->value.data_as_int; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_short] = assignment_data->value.data_as_int; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_long[expression_data->value.data_as_long] = assignment_data->value.data_as_int; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_long[expression_data->value.data_as__int64] = assignment_data->value.data_as_int; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_long[expression_data->value.data_as_char] = assignment_data->value.data_as_int; break;
+				case TYPE_INT: data->value.array_as_long[expression_data->value.data_as_int] = assignment_data->value.data_as_int; break;
+				case TYPE_SHORT: data->value.array_as_long[expression_data->value.data_as_short] = assignment_data->value.data_as_int; break;
+				case TYPE_LONG: data->value.array_as_long[expression_data->value.data_as_long] = assignment_data->value.data_as_int; break;
+				case TYPE__INT64: data->value.array_as_long[expression_data->value.data_as__int64] = assignment_data->value.data_as_int; break;
+				case TYPE_CHAR: data->value.array_as_long[expression_data->value.data_as_char] = assignment_data->value.data_as_int; break;
 				}
 				break;
 			case TYPE_SHORT:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_int] = assignment_data->value.data_as_short; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_short] = assignment_data->value.data_as_short; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_long[expression_data->value.data_as_long] = assignment_data->value.data_as_short; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_long[expression_data->value.data_as__int64] = assignment_data->value.data_as_short; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_long[expression_data->value.data_as_char] = assignment_data->value.data_as_short; break;
+				case TYPE_INT: data->value.array_as_long[expression_data->value.data_as_int] = assignment_data->value.data_as_short; break;
+				case TYPE_SHORT: data->value.array_as_long[expression_data->value.data_as_short] = assignment_data->value.data_as_short; break;
+				case TYPE_LONG: data->value.array_as_long[expression_data->value.data_as_long] = assignment_data->value.data_as_short; break;
+				case TYPE__INT64: data->value.array_as_long[expression_data->value.data_as__int64] = assignment_data->value.data_as_short; break;
+				case TYPE_CHAR: data->value.array_as_long[expression_data->value.data_as_char] = assignment_data->value.data_as_short; break;
 				}
 				break;
 			case TYPE_LONG:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_int] = assignment_data->value.data_as_long; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_short] = assignment_data->value.data_as_long; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_long[expression_data->value.data_as_long] = assignment_data->value.data_as_long; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_long[expression_data->value.data_as__int64] = assignment_data->value.data_as_long; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_long[expression_data->value.data_as_char] = assignment_data->value.data_as_long; break;
+				case TYPE_INT: data->value.array_as_long[expression_data->value.data_as_int] = assignment_data->value.data_as_long; break;
+				case TYPE_SHORT: data->value.array_as_long[expression_data->value.data_as_short] = assignment_data->value.data_as_long; break;
+				case TYPE_LONG: data->value.array_as_long[expression_data->value.data_as_long] = assignment_data->value.data_as_long; break;
+				case TYPE__INT64: data->value.array_as_long[expression_data->value.data_as__int64] = assignment_data->value.data_as_long; break;
+				case TYPE_CHAR: data->value.array_as_long[expression_data->value.data_as_char] = assignment_data->value.data_as_long; break;
 				}
 				break;
 			case TYPE__INT64:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_int] = assignment_data->value.data_as__int64; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_short] = assignment_data->value.data_as__int64; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_long[expression_data->value.data_as_long] = assignment_data->value.data_as__int64; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_long[expression_data->value.data_as__int64] = assignment_data->value.data_as__int64; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_long[expression_data->value.data_as_char] = assignment_data->value.data_as__int64; break;
+				case TYPE_INT: data->value.array_as_long[expression_data->value.data_as_int] = assignment_data->value.data_as__int64; break;
+				case TYPE_SHORT: data->value.array_as_long[expression_data->value.data_as_short] = assignment_data->value.data_as__int64; break;
+				case TYPE_LONG: data->value.array_as_long[expression_data->value.data_as_long] = assignment_data->value.data_as__int64; break;
+				case TYPE__INT64: data->value.array_as_long[expression_data->value.data_as__int64] = assignment_data->value.data_as__int64; break;
+				case TYPE_CHAR: data->value.array_as_long[expression_data->value.data_as_char] = assignment_data->value.data_as__int64; break;
 				}
 				break;
 			case TYPE_CHAR:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_int] = assignment_data->value.data_as_char; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_long[expression_data->value.data_as_short] = assignment_data->value.data_as_char; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_long[expression_data->value.data_as_long] = assignment_data->value.data_as_char; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_long[expression_data->value.data_as__int64] = assignment_data->value.data_as_char; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_long[expression_data->value.data_as_char] = assignment_data->value.data_as_char; break;
+				case TYPE_INT: data->value.array_as_long[expression_data->value.data_as_int] = assignment_data->value.data_as_char; break;
+				case TYPE_SHORT: data->value.array_as_long[expression_data->value.data_as_short] = assignment_data->value.data_as_char; break;
+				case TYPE_LONG: data->value.array_as_long[expression_data->value.data_as_long] = assignment_data->value.data_as_char; break;
+				case TYPE__INT64: data->value.array_as_long[expression_data->value.data_as__int64] = assignment_data->value.data_as_char; break;
+				case TYPE_CHAR: data->value.array_as_long[expression_data->value.data_as_char] = assignment_data->value.data_as_char; break;
 				}
 				break;
 			}
+			break;
 		case TYPE__INT64:
 			switch (assignment_data->type) {
 			case TYPE_INT:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_int] = assignment_data->value.data_as_int; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_short] = assignment_data->value.data_as_int; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_long] = assignment_data->value.data_as_int; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as__int64[expression_data->value.data_as__int64] = assignment_data->value.data_as_int; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_char] = assignment_data->value.data_as_int; break;
+				case TYPE_INT: data->value.array_as__int64[expression_data->value.data_as_int] = assignment_data->value.data_as_int; break;
+				case TYPE_SHORT: data->value.array_as__int64[expression_data->value.data_as_short] = assignment_data->value.data_as_int; break;
+				case TYPE_LONG: data->value.array_as__int64[expression_data->value.data_as_long] = assignment_data->value.data_as_int; break;
+				case TYPE__INT64: data->value.array_as__int64[expression_data->value.data_as__int64] = assignment_data->value.data_as_int; break;
+				case TYPE_CHAR: data->value.array_as__int64[expression_data->value.data_as_char] = assignment_data->value.data_as_int; break;
 				}
 				break;
 			case TYPE_SHORT:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_int] = assignment_data->value.data_as_short; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_short] = assignment_data->value.data_as_short; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_long] = assignment_data->value.data_as_short; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as__int64[expression_data->value.data_as__int64] = assignment_data->value.data_as_short; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_char] = assignment_data->value.data_as_short; break;
+				case TYPE_INT: data->value.array_as__int64[expression_data->value.data_as_int] = assignment_data->value.data_as_short; break;
+				case TYPE_SHORT: data->value.array_as__int64[expression_data->value.data_as_short] = assignment_data->value.data_as_short; break;
+				case TYPE_LONG: data->value.array_as__int64[expression_data->value.data_as_long] = assignment_data->value.data_as_short; break;
+				case TYPE__INT64: data->value.array_as__int64[expression_data->value.data_as__int64] = assignment_data->value.data_as_short; break;
+				case TYPE_CHAR: data->value.array_as__int64[expression_data->value.data_as_char] = assignment_data->value.data_as_short; break;
 				}
 				break;
 			case TYPE_LONG:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_int] = assignment_data->value.data_as_long; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_short] = assignment_data->value.data_as_long; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_long] = assignment_data->value.data_as_long; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as__int64[expression_data->value.data_as__int64] = assignment_data->value.data_as_long; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_char] = assignment_data->value.data_as_long; break;
-				}
-				break;
-			case TYPE__INT64:
-				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_int] = assignment_data->value.data_as__int64; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_short] = assignment_data->value.data_as__int64; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_long] = assignment_data->value.data_as__int64; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as__int64[expression_data->value.data_as__int64] = assignment_data->value.data_as__int64; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_char] = assignment_data->value.data_as__int64; break;
+				case TYPE_INT: data->value.array_as__int64[expression_data->value.data_as_int] = assignment_data->value.data_as_long; break;
+				case TYPE_SHORT: data->value.array_as__int64[expression_data->value.data_as_short] = assignment_data->value.data_as_long; break;
+				case TYPE_LONG: data->value.array_as__int64[expression_data->value.data_as_long] = assignment_data->value.data_as_long; break;
+				case TYPE__INT64: data->value.array_as__int64[expression_data->value.data_as__int64] = assignment_data->value.data_as_long; break;
+				case TYPE_CHAR: data->value.array_as__int64[expression_data->value.data_as_char] = assignment_data->value.data_as_long; break;
 				}
 				break;
 			case TYPE_CHAR:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_int] = assignment_data->value.data_as_char; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_short] = assignment_data->value.data_as_char; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_long] = assignment_data->value.data_as_char; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as__int64[expression_data->value.data_as__int64] = assignment_data->value.data_as_char; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as__int64[expression_data->value.data_as_char] = assignment_data->value.data_as_char; break;
+				case TYPE_INT: data->value.array_as__int64[expression_data->value.data_as_int] = assignment_data->value.data_as_char; break;
+				case TYPE_SHORT: data->value.array_as__int64[expression_data->value.data_as_short] = assignment_data->value.data_as_char; break;
+				case TYPE_LONG: data->value.array_as__int64[expression_data->value.data_as_long] = assignment_data->value.data_as_char; break;
+				case TYPE__INT64: data->value.array_as__int64[expression_data->value.data_as__int64] = assignment_data->value.data_as_char; break;
+				case TYPE_CHAR: data->value.array_as__int64[expression_data->value.data_as_char] = assignment_data->value.data_as_char; break;
 				}
 				break;
 			}
+			break;
 		case TYPE_CHAR:
 			switch (assignment_data->type) {
 			case TYPE_INT:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_int] = assignment_data->value.data_as_int; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_short] = assignment_data->value.data_as_int; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_char[expression_data->value.data_as_long] = assignment_data->value.data_as_int; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_char[expression_data->value.data_as__int64] = assignment_data->value.data_as_int; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_char[expression_data->value.data_as_char] = assignment_data->value.data_as_int; break;
+				case TYPE_INT: data->value.array_as_char[expression_data->value.data_as_int] = assignment_data->value.data_as_int; break;
+				case TYPE_SHORT: data->value.array_as_char[expression_data->value.data_as_short] = assignment_data->value.data_as_int; break;
+				case TYPE_LONG: data->value.array_as_char[expression_data->value.data_as_long] = assignment_data->value.data_as_int; break;
+				case TYPE__INT64: data->value.array_as_char[expression_data->value.data_as__int64] = assignment_data->value.data_as_int; break;
+				case TYPE_CHAR: data->value.array_as_char[expression_data->value.data_as_char] = assignment_data->value.data_as_int; break;
 				}
 				break;
 			case TYPE_SHORT:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_int] = assignment_data->value.data_as_short; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_short] = assignment_data->value.data_as_short; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_char[expression_data->value.data_as_long] = assignment_data->value.data_as_short; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_char[expression_data->value.data_as__int64] = assignment_data->value.data_as_short; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_char[expression_data->value.data_as_char] = assignment_data->value.data_as_short; break;
+				case TYPE_INT: data->value.array_as_char[expression_data->value.data_as_int] = assignment_data->value.data_as_short; break;
+				case TYPE_SHORT: data->value.array_as_char[expression_data->value.data_as_short] = assignment_data->value.data_as_short; break;
+				case TYPE_LONG: data->value.array_as_char[expression_data->value.data_as_long] = assignment_data->value.data_as_short; break;
+				case TYPE__INT64: data->value.array_as_char[expression_data->value.data_as__int64] = assignment_data->value.data_as_short; break;
+				case TYPE_CHAR: data->value.array_as_char[expression_data->value.data_as_char] = assignment_data->value.data_as_short; break;
 				}
 				break;
 			case TYPE_LONG:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_int] = assignment_data->value.data_as_long; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_short] = assignment_data->value.data_as_long; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_char[expression_data->value.data_as_long] = assignment_data->value.data_as_long; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_char[expression_data->value.data_as__int64] = assignment_data->value.data_as_long; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_char[expression_data->value.data_as_char] = assignment_data->value.data_as_long; break;
-				}
-				break;
-			case TYPE__INT64:
-				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_int] = assignment_data->value.data_as__int64; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_short] = assignment_data->value.data_as__int64; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_char[expression_data->value.data_as_long] = assignment_data->value.data_as__int64; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_char[expression_data->value.data_as__int64] = assignment_data->value.data_as__int64; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_char[expression_data->value.data_as_char] = assignment_data->value.data_as__int64; break;
+				case TYPE_INT: data->value.array_as_char[expression_data->value.data_as_int] = assignment_data->value.data_as_long; break;
+				case TYPE_SHORT: data->value.array_as_char[expression_data->value.data_as_short] = assignment_data->value.data_as_long; break;
+				case TYPE_LONG: data->value.array_as_char[expression_data->value.data_as_long] = assignment_data->value.data_as_long; break;
+				case TYPE__INT64: data->value.array_as_char[expression_data->value.data_as__int64] = assignment_data->value.data_as_long; break;
+				case TYPE_CHAR: data->value.array_as_char[expression_data->value.data_as_char] = assignment_data->value.data_as_long; break;
 				}
 				break;
 			case TYPE_CHAR:
 				switch (expression_data->type) {
-				case TYPE_INT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_int] = assignment_data->value.data_as_char; break;
-				case TYPE_SHORT: t->get_node()->data.value.array_as_char[expression_data->value.data_as_short] = assignment_data->value.data_as_char; break;
-				case TYPE_LONG: t->get_node()->data.value.array_as_char[expression_data->value.data_as_long] = assignment_data->value.data_as_char; break;
-				case TYPE__INT64: t->get_node()->data.value.array_as_char[expression_data->value.data_as__int64] = assignment_data->value.data_as_char; break;
-				case TYPE_CHAR: t->get_node()->data.value.array_as_char[expression_data->value.data_as_char] = assignment_data->value.data_as_char; break;
+				case TYPE_INT: data->value.array_as_char[expression_data->value.data_as_int] = assignment_data->value.data_as_char; break;
+				case TYPE_SHORT: data->value.array_as_char[expression_data->value.data_as_short] = assignment_data->value.data_as_char; break;
+				case TYPE_LONG: data->value.array_as_char[expression_data->value.data_as_long] = assignment_data->value.data_as_char; break;
+				case TYPE__INT64: data->value.array_as_char[expression_data->value.data_as__int64] = assignment_data->value.data_as_char; break;
+				case TYPE_CHAR: data->value.array_as_char[expression_data->value.data_as_char] = assignment_data->value.data_as_char; break;
 				}
 				break;
 			}
+			break;
 		}
 
 		int index = 0;
@@ -1723,11 +1873,34 @@ void TDiagram::elementary_expression(TData* data) {
 		if (type == TLeftSquareBracket) {
 			Tree* t = root->semantic_get_type(lex, OBJECT_ARRAY);
 
-			data->type = t->get_node()->data.type;
 			TData* expression_data = new TData;
 			array_ident(expression_data);
 			
 			data->type = t->get_node()->data.type;
+
+			switch (expression_data->type) {
+			case TYPE_INT:
+				if (expression_data->value.data_as_int >= t->get_node()->array_size || expression_data->value.data_as_int < 0)
+					scaner->print_error("Array index out of range", "");
+				break;
+			case TYPE_SHORT:
+				if (expression_data->value.data_as_short >= t->get_node()->array_size || expression_data->value.data_as_short < 0)
+					scaner->print_error("Array index out of range", "");
+				break;
+			case TYPE_LONG:
+				if (expression_data->value.data_as_long >= t->get_node()->array_size || expression_data->value.data_as_long < 0)
+					scaner->print_error("Array index out of range", "");
+				break;
+			case TYPE__INT64:
+				if (expression_data->value.data_as__int64 >= t->get_node()->array_size || expression_data->value.data_as__int64 < 0)
+					scaner->print_error("Array index out of range", "");
+				break;
+			case TYPE_CHAR:
+				if (expression_data->value.data_as_char >= t->get_node()->array_size || expression_data->value.data_as_char < 0)
+					scaner->print_error("Array index out of range", "");
+				break;
+			}
+
 			switch (t->get_node()->data.type) {
 			case TYPE_INT:
 				switch (expression_data->type) {

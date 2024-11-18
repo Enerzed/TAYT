@@ -38,6 +38,14 @@ union type_value {
 struct TData {
 	type_data type;
 	type_value value;
+	TData() {
+		type = TYPE_UNKNOWN;
+		value.data_as_char = 0;
+		value.data_as_short = 0;
+		value.data_as_int = 0;
+		value.data_as_long = 0;
+		value.data_as__int64 = 0;
+	}
 };
 
 class Tree;

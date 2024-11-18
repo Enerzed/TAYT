@@ -44,6 +44,18 @@ void TScaner::print_error(const char* error, const char* text)
 	exit(0);
 }
 
+void TScaner::print_warning(const char* warning, const char* text)
+{
+	if (break_line_positions.empty())
+		position_in_line = pointer;
+	else 
+		position_in_line = pointer - break_line_positions.back() ;
+	if (text[0] == '\0')
+		std::cout << "Line " << line_counter << " position " << position_in_line << ": " << warning << std::endl;
+	else
+		std::cout << "Line " << line_counter << " position " << position_in_line << ": " << warning << " " << text << std::endl;
+}
+
 int TScaner::scaner(type_lex lex)
 {
 	int i = 0;

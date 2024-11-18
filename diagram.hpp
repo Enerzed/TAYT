@@ -18,7 +18,7 @@ private:
 	void element();						// Элемент
 	void variable();					// Переменная
 	void array();						// Массив
-	void array_expression();			// Выражение одномерного массива
+	void array_expression(Tree*);			// Выражение одномерного массива
 	void array_ident(TData*);			// Идентификатор массива
 	void assignment();					// Присваивание
 	void expression(TData*);			// Выражение
