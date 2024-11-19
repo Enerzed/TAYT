@@ -442,7 +442,7 @@ void TDiagram::assignment() {
 	}
 
 	Tree* t = root->semantic_get_type(lex, OBJECT_VARIABLE);
-	TData* data = &root->get_current_node()->data;
+	TData* data = &t->get_node()->data;
 	root->semantic_set_init(t, 1);
 
 	//type = look_forward(1);
@@ -888,6 +888,7 @@ void TDiagram::function_call() {
 void TDiagram::condition() {
 	type_lex lex;
 	int type;
+	bool local_flag_interp = root->get_flag_interp();
 
 	type = scan(lex);
 	if (type != TIf)
@@ -897,14 +898,31 @@ void TDiagram::condition() {
 	if (type != TLeftBracket)
 		scaner->print_error("Expected ( got", lex);
 
-	TData* data = &root->get_current_node()->data;
-	expression(data);
+	TData* expression_data = new TData;
+	expression(expression_data);
 
 	type = scan(lex);
 	if (type != TRightBracket)
 		scaner->print_error("Expected ) got", lex);
 
+	bool expression_value;
+
+	switch (expression_data->type) {
+		case TYPE_INT: expression_value = expression_data->value.data_as_int; break;
+		case TYPE_SHORT: expression_value = expression_data->value.data_as_short; break;
+		case TYPE_LONG: expression_value = expression_data->value.data_as_long; break;
+		case TYPE__INT64: expression_value = expression_data->value.data_as__int64; break;
+		case TYPE_CHAR: expression_value = expression_data->value.data_as_char; break;
+	}
+	if (root->get_flag_interp() && !expression_value)
+		root->set_flag_interp(true);
+	else
+		root->set_flag_interp(false);
+
 	operator_();
+
+	if (local_flag_interp)
+		root->set_flag_interp(!root->get_flag_interp());
 
 	type = look_forward(1);
 	if (type == TElse)
@@ -912,6 +930,8 @@ void TDiagram::condition() {
 		type = scan(lex);
 		operator_();
 	}
+
+	root->set_flag_interp(local_flag_interp);
 }
 
 void TDiagram::expression(TData* data) {

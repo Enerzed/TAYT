@@ -66,11 +66,14 @@ private:
 	Tree* parent;
 	Tree* left;
 	Tree* right;
+	static bool flag_interp;
 public:
 	Tree* current;
 	Tree(TScaner*, Tree* parent, Tree* left, Tree* right, Node* node);
 	Tree(TScaner*);
 	~Tree();
+	void set_flag_interp(bool new_flag) { flag_interp = new_flag; }
+	bool get_flag_interp() { return flag_interp; }
 
 	void set_left(Node*);
 	void set_right(Node*);

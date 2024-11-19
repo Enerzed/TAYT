@@ -1,10 +1,17 @@
-void func2() {
-	int k;
+void func() {
+	int k = 1;
+	k = k + 5;
 }
 
-void func() {
-	int g;
-	g = 3;
+void main() {
+	int g = 10;
+	g = 10;
+	if(g == 10)
+		if(2==2)
+			g = 5;
+		else
+			g = 67;
+
 	short f = g;
 	short a[3] = {1, 2, 3};
 	int k[10] = {};
