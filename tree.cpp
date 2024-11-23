@@ -129,7 +129,7 @@ Tree* Tree::semantic_get_init(type_lex lex) {
 	Tree* t = find_up(current, lex);
 	if (t == NULL)
 		scaner->print_error("Identifier not found", lex);
-	if (t->node->object != OBJECT_VARIABLE || t->node->object != OBJECT_ARRAY)
+	if (t->node->object != OBJECT_VARIABLE)
 		scaner->print_error("Identifier used incorrectly", lex);
 	return(t);
 }
@@ -267,3 +267,5 @@ Tree::~Tree() {
 		delete right;
 	delete node;
 }
+
+bool Tree::flag_interp = false;

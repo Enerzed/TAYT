@@ -71,6 +71,11 @@ void TDiagram::function() {
 	if (type != TIdent && type != TMain)
 		scaner->print_error("Expected identificator got", lex);
 
+	if (type == TMain)
+		root->flag_interp = true;
+	else
+		root->flag_interp = false;
+
 	Tree* t = root->semantic_include(lex, OBJECT_FUNCTION, TYPE_VOID);
 
 	type = scan(lex);
@@ -81,6 +86,16 @@ void TDiagram::function() {
 	if (type != TRightBracket)
 		scaner->print_error("Expected ) got", lex);
 
+	t->get_node()->addr = scaner->get_pointer();
+	function_body();
+
+	root->set_current(t);
+}
+
+void TDiagram::function_body() {
+	type_lex lex;
+	int type, pointer;
+
 	type = scan(lex);
 	if (type != TLeftBrace)
 		scaner->print_error("Expected { got", lex);
@@ -90,8 +105,6 @@ void TDiagram::function() {
 	type = scan(lex);
 	if (type != TRightBrace)
 		scaner->print_error("Expected } got", lex);
-
-	root->set_current(t);
 }
 
 void TDiagram::type() {
@@ -184,7 +197,7 @@ void TDiagram::array() {
 		scaner->print_error("Expected identificator got", lex);
 
 	Tree* t = root->semantic_include(lex, OBJECT_ARRAY, last_type_data);
-	TData* data = &root->get_current_node()->data;
+	TData* data = &t->get_node()->data;
 
 	type = scan(lex);
 	if (type != TLeftSquareBracket) {
@@ -578,7 +591,7 @@ void TDiagram::operator_() {
 		type = scan(lex);
 
 		Tree* t = root->semantic_get_type(lex, OBJECT_ARRAY);
-		TData* data = &root->get_current_node()->data;
+		TData* data = &t->get_node()->data;
 		TData* expression_data = new TData;
 		TData* assignment_data = new TData;
 		array_ident(expression_data);
@@ -883,12 +896,22 @@ void TDiagram::function_call() {
 	type = scan(lex);
 	if (type != TSemicolon)
 		scaner->print_error("Expected ; got", lex);
+
+	if (root->flag_interp) {
+		Tree* current = root->get_current();
+		root->set_current(t);
+		int pointer = scaner->get_pointer();
+		scaner->set_pointer(t->get_node()->addr);
+		function_body();
+		root->set_current(current);
+		scaner->set_pointer(pointer);
+	}
 }
 
 void TDiagram::condition() {
 	type_lex lex;
 	int type;
-	bool local_flag_interp = root->get_flag_interp();
+	bool local_flag_interp = root->flag_interp;
 
 	type = scan(lex);
 	if (type != TIf)
@@ -913,16 +936,17 @@ void TDiagram::condition() {
 		case TYPE_LONG: expression_value = expression_data->value.data_as_long; break;
 		case TYPE__INT64: expression_value = expression_data->value.data_as__int64; break;
 		case TYPE_CHAR: expression_value = expression_data->value.data_as_char; break;
+		//default: expression_value = false; scaner->print_error("Expression value cannot be determined", ""); break;
 	}
-	if (root->get_flag_interp() && !expression_value)
-		root->set_flag_interp(true);
+	if (root->flag_interp && expression_value)
+		root->flag_interp = true;
 	else
-		root->set_flag_interp(false);
+		root->flag_interp = false;
 
 	operator_();
 
 	if (local_flag_interp)
-		root->set_flag_interp(!root->get_flag_interp());
+		root->flag_interp = !root->flag_interp;
 
 	type = look_forward(1);
 	if (type == TElse)
@@ -931,7 +955,7 @@ void TDiagram::condition() {
 		operator_();
 	}
 
-	root->set_flag_interp(local_flag_interp);
+	root->flag_interp = local_flag_interp;
 }
 
 void TDiagram::expression(TData* data) {
@@ -1615,11 +1639,11 @@ void TDiagram::multiplier(TData* data) {
 		TData* expression_data = new TData;
 		unary_operation(expression_data);
 		if (
-			expression_data->value.data_as_int == 0 && (operation == TDiv || operation == TMod) || 
+			(expression_data->value.data_as_int == 0 && (operation == TDiv || operation == TMod) || 
 			expression_data->value.data_as_short == 0 && (operation == TDiv || operation == TMod) ||
 			expression_data->value.data_as_long == 0 && (operation == TDiv || operation == TMod) ||
 			expression_data->value.data_as__int64 == 0 && (operation == TDiv || operation == TMod) ||
-			expression_data->value.data_as_char == 0 && (operation == TDiv || operation == TMod))
+			expression_data->value.data_as_char == 0 && (operation == TDiv || operation == TMod)) && root->flag_interp)
 			scaner->print_error("Division by zero", "");
 		type = look_forward(1);
 
@@ -1892,12 +1916,10 @@ void TDiagram::elementary_expression(TData* data) {
 		int type = look_forward(1);
 		if (type == TLeftSquareBracket) {
 			Tree* t = root->semantic_get_type(lex, OBJECT_ARRAY);
-
 			TData* expression_data = new TData;
 			array_ident(expression_data);
-			
+			if (root->flag_interp == false) return;
 			data->type = t->get_node()->data.type;
-
 			switch (expression_data->type) {
 			case TYPE_INT:
 				if (expression_data->value.data_as_int >= t->get_node()->array_size || expression_data->value.data_as_int < 0)
@@ -1920,7 +1942,6 @@ void TDiagram::elementary_expression(TData* data) {
 					scaner->print_error("Array index out of range", "");
 				break;
 			}
-
 			switch (t->get_node()->data.type) {
 			case TYPE_INT:
 				switch (expression_data->type) {
@@ -1968,18 +1989,19 @@ void TDiagram::elementary_expression(TData* data) {
 				}
 				break;
 			}
-
 			return;
 		}
 		Tree* t = root->semantic_get_type(lex, OBJECT_VARIABLE);
 		if (t->get_node()->init != 1)
 			scaner->print_error("Variable not initialized", lex);
+		if (root->flag_interp == false) return;
 		data->type = t->get_node()->data.type;
 		data->value = t->get_node()->data.value;
 		return;
 	}
 	else if (type == TConst10 || type == TConst16) {
 		type = scan(lex);
+		if (root->flag_interp == false) return;
 		data->type = TYPE__INT64;
 		data->value.data_as__int64 = strtoll(lex, NULL, 0);
 		return;

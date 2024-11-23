@@ -51,12 +51,13 @@ struct TData {
 class Tree;
 
 struct Node {
+	Tree* pointer;
 	type_lex lex;
 	type_object object;
 	TData data;
 	int init;
 	int array_size;
-	Tree* pointer;
+	int addr;
 };
 
 class Tree {
@@ -66,15 +67,12 @@ private:
 	Tree* parent;
 	Tree* left;
 	Tree* right;
-	static bool flag_interp;
 public:
+	static bool flag_interp;
 	Tree* current;
 	Tree(TScaner*, Tree* parent, Tree* left, Tree* right, Node* node);
 	Tree(TScaner*);
 	~Tree();
-	void set_flag_interp(bool new_flag) { flag_interp = new_flag; }
-	bool get_flag_interp() { return flag_interp; }
-
 	void set_left(Node*);
 	void set_right(Node*);
 	Tree* find_up(Tree*, type_lex);

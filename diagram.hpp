@@ -13,6 +13,7 @@ private:
 	void description();					// Описание
 	void data();						// Данные
 	void function();					// Функция
+	void function_body();				// Тело функции
 	void type();						// Тип
 	void list();						// Список
 	void element();						// Элемент
